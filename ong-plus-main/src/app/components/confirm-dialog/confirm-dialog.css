@@ -1,0 +1,14 @@
+p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  margin-top: 16px;
+}
+
+button {
+  margin-left: 8px;
+}

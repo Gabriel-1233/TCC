@@ -1,0 +1,96 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ data.campaign ? 'Editar Campanha' : 'Nova Campanha'  }}</h5>
+  <button type="button" class="btn-close" (click)="cancel()"></button>
+</div>
+
+<div class="modal-body">
+  <form  [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título</label>
+      <input type="text" class="form-control" id="titulo" formControlName="titulo">
+      <div *ngIf="campaignForm.get('titulo')?.invalid && campaignForm.get('titulo')?.touched" class="text-danger">
+        Título é obrigatório
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="descricao" class="form-label">Descrição</label>
+      <textarea class="form-control" id="descricao" rows="4" formControlName="descricao"></textarea>
+      <div *ngIf="campaignForm.get('descricao')?.invalid && campaignForm.get('descricao')?.touched" class="text-danger">
+        Descrição é obrigatória
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="categoria" class="form-label">Categoria</label>
+      <select class="form-select" id="categoria" formControlName="categoria">
+        <option value="">Selecione uma categoria</option>
+        <option *ngFor="let category of categories" [value]="category">
+          {{ getCategoryName(category) }}
+        </option>
+      </select>
+      <div *ngIf="campaignForm.get('categoria')?.invalid && campaignForm.get('categoria')?.touched" class="text-danger">
+        Categoria é obrigatória
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="meta" class="form-label">Meta (R$)</label>
+      <input type="number" class="form-control" id="meta" formControlName="meta">
+      <div *ngIf="campaignForm.get('meta')?.hasError('required') && campaignForm.get('meta')?.touched" class="text-danger">
+        Meta é obrigatória
+      </div>
+      <div *ngIf="campaignForm.get('meta')?.hasError('min') && campaignForm.get('meta')?.touched" class="text-danger">
+        Meta deve ser maior que zero
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="dataFim" class="form-label">Data de Término</label>
+      <input type="date" class="form-control" id="dataFim" formControlName="dataFim" [min]="minDate | date:'yyyy-MM-dd'">
+      <div *ngIf="campaignForm.get('dataFim')?.invalid && campaignForm.get('dataFim')?.touched" class="text-danger">
+        Data de término é obrigatória
+      </div>
+    </div>
+
+    <div formGroupName="local" class="border p-3 mb-3">
+      <h6>Localização</h6>
+      <div class="mb-3">
+        <label for="endereco" class="form-label">Endereço</label>
+        <input type="text" class="form-control" id="endereco" formControlName="endereco">
+        <div *ngIf="campaignForm.get('local.endereco')?.invalid && campaignForm.get('local.endereco')?.touched" class="text-danger">
+          Endereço é obrigatório
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="cidade" class="form-label">Cidade</label>
+          <input type="text" class="form-control" id="cidade" formControlName="cidade">
+          <div *ngIf="campaignForm.get('local.cidade')?.invalid && campaignForm.get('local.cidade')?.touched" class="text-danger">
+            Cidade é obrigatória
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="estado" class="form-label">Estado</label>
+          <input type="text" class="form-control" id="estado" formControlName="estado">
+          <div *ngIf="campaignForm.get('local.estado')?.invalid && campaignForm.get('local.estado')?.touched" class="text-danger">
+            Estado é obrigatório
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="imagem" class="form-label">Imagem da Campanha</label>
+      <input type="file" class="form-control" id="imagem" (change)="onFileSelected($event)" accept="image/*">
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="onSubmit()" >
+    {{ data.campaign ? 'Atualizar' : 'Criar' }}
+  </button>
+</div>

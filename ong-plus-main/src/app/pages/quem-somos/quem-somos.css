@@ -1,0 +1,359 @@
+/* Variáveis CSS */
+
+
+/* Hero Section */
+.luxury-hero {
+  min-height: 100vh;
+  background-image: url('/imagem-luxo1.jpg');
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+}
+
+.luxury-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 50%, rgba(67, 97, 238, 0.15) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.luxury-hero h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 3.5rem;
+  letter-spacing: -0.5px;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.luxury-highlight {
+  color: var(--gold);
+  position: relative;
+  display: inline-block;
+}
+
+.luxury-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: rgba(255, 209, 102, 0.3);
+  z-index: -1;
+  transform: skewY(-2deg);
+}
+
+.luxury-subtitle {
+  font-family: var(--font-subheading);
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+
+
+/* Particles Animation */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: float 15s infinite linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Video Section */
+.luxury-video-section {
+  background-color: var(--light);
+}
+
+.luxury-video-container {
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: var(--transition);
+}
+
+.luxury-video-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.luxury-video-caption {
+background-image:url('/image-luxo2.jpg') ;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+/* About Section */
+.luxury-about-section {
+ background-image: url('/imagem-luxo3.jpg');
+}
+
+.luxury-section-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--dark);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.luxury-title-line {
+  display: block;
+}
+
+.luxury-section-subtitle {
+  font-family: var(--font-subheading);
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: rgba(28, 42, 57, 0.8);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.luxury-card {
+  background: white;
+  transition: var(--transition);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.luxury-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.luxury-icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto;
+  position: relative;
+}
+
+.luxury-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.luxury-card-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--primary);
+}
+
+.luxury-card-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(28, 42, 57, 0.8);
+}
+
+/* Values Section */
+.luxury-values-section {
+  background-color: var(--light);
+}
+
+.luxury-value-card {
+  background: white;
+  transition: var(--transition);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+}
+
+.luxury-value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.luxury-value-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+
+  
+  margin: 0 auto;
+}
+
+.luxury-value-title {
+  font-family: var(--font-subheading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+/* Team Section */
+.luxury-team-section {
+  background-image: url(/imagem-luxo4.jpg);
+}
+
+.luxury-team-card {
+  background: white;
+  transition: var(--transition);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.luxury-team-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.luxury-team-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 5px solid rgba(67, 97, 238, 0.1);
+  transition: var(--transition);
+}
+
+.luxury-team-card:hover .luxury-team-avatar {
+  border-color: rgba(67, 97, 238, 0.3);
+}
+
+.luxury-team-name {
+  font-family: var(--font-subheading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.luxury-team-role {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* CTA Section */
+.luxury-cta-section {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  position: relative;
+}
+
+.luxury-cta-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.luxury-cta-subtitle {
+  font-family: var(--font-subheading);
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.luxury-btn {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-subheading);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: var(--transition);
+  border: 2px solid transparent;
+}
+
+.luxury-btn-primary {
+  background: white;
+  color: var(--primary);
+}
+
+.luxury-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.luxury-btn-outline {
+  border-color: white;
+  color: white;
+}
+
+.luxury-btn-outline:hover {
+  background: white;
+  color: var(--primary);
+}
+
+/* Utility Classes */
+.z-index-1 { z-index: 1; }
+.z-index-2 { z-index: 2; }
+.py-8 { padding-top: 6rem; padding-bottom: 6rem; }
+.mb-7 { margin-bottom: 5rem; }
+.shadow-xxl { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important; }
+
+/* Responsividade */
+@media (max-width: 992px) {
+  .luxury-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .luxury-section-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .luxury-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .luxury-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .luxury-card {
+    margin-bottom: 1.5rem;
+  }
+}

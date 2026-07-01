@@ -1,0 +1,110 @@
+<app-header></app-header>
+
+<ng-container *ngIf="!isLoading && user; else carregando">
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="cover-photo">
+        <div class="profile-avatar">
+          <img [src]="user.fotoPerfil || '/logo-ong-white.svg'" alt="Foto de perfil" >
+        </div>
+      </div>
+
+      <div class="profile-info">
+        <h1>{{ user.nome }}</h1>
+        <div class="profile-badge" [ngClass]="user.tipo">
+          {{ user.tipo === 'ong' ? 'ONG' : 'Doador' }}
+        </div>
+
+        <div class="profile-meta">
+          <span>
+            <mat-icon>event</mat-icon> Membro desde {{ formatDate(user.dataCriacao) }}
+          </span>
+          <span *ngIf="user.endereco">
+            <mat-icon>location_on</mat-icon>
+            {{ user.endereco.cidade }}, {{ user.endereco.estado }}
+          </span>
+        </div>
+
+        <div class="social-links" *ngIf="isOng(user) && user.redesSociais">
+          <a *ngIf="user.redesSociais.facebook" [href]="user.redesSociais.facebook" target="_blank">
+            <mat-icon>thumb_up</mat-icon>
+          </a>
+          <a *ngIf="user.redesSociais.instagram" [href]="user.redesSociais.instagram" target="_blank">
+            <mat-icon>photo_camera</mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <div class="main-info">
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>info</mat-icon> Informações
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-item">
+              <span class="info-label">Email:</span>
+              <span>{{ user.email }}</span>
+            </div>
+            <div class="info-item" *ngIf="user.telefone">
+              <span class="info-label">Telefone:</span>
+              <span>{{ user.telefone }}</span>
+            </div>
+            <div class="info-item" *ngIf="user.endereco">
+              <span class="info-label">Endereço:</span>
+              <span>
+                {{ user.endereco.rua }}, {{ user.endereco.numero }} -
+                {{ user.endereco.cidade }}/{{ user.endereco.estado }}
+              </span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <ng-container *ngIf="isOng(user)">
+          <mat-card class="info-card">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon>business</mat-icon> Sobre
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="info-item">
+                <span class="info-label">CNPJ:</span>
+                <span>{{ formatCNPJ(user.cnpj) }}</span>
+              </div>
+              <p class="description">{{ user.descricao }}</p>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+      </div>
+
+      <div class="side-section">
+        <mat-card *ngIf="isOwnProfile">
+          <mat-card-content>
+            <button mat-raised-button color="primary" class="full-width-btn" (click)="editarPerfil()">
+              <mat-icon>edit</mat-icon> Editar Perfil
+            </button>
+            <button mat-raised-button color="warn" class="full-width-btn mt-2" (click)="excluirPerfil()">
+              <mat-icon>delete</mat-icon> Excluir Perfil
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="!isOng(user) && isOwnProfile">
+  <app-donor-dashboard></app-donor-dashboard>
+</ng-container>
+
+<ng-template #carregando>
+  <div class="text-center mt-5">
+    <mat-spinner></mat-spinner>
+    <p>Carregando perfil...</p>
+  </div>
+</ng-template>
+
+<app-footer></app-footer>

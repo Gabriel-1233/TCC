@@ -1,0 +1,186 @@
+.registration-container {
+  font-family: 'Montserrat', sans-serif;
+  color: #1C2A39;
+}
+
+.registration-hero {
+  background: linear-gradient(135deg, #1C2A39 0%, #0F1721 100%);
+  color: white;
+  padding: 4rem 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.registration-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(176, 141, 87, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 80% 70%, rgba(214, 207, 199, 0.1) 0%, transparent 25%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logo-container svg {
+  width: 40px;
+  height: 40px;
+  color: #B08D57;
+}
+
+.logo-container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.registration-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.tab-button {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tab-button:hover {
+  border-color: #B08D57;
+  color: #B08D57;
+}
+
+.tab-button.active {
+  background: #B08D57;
+  border-color: #B08D57;
+  color: white;
+}
+
+.tab-button i {
+  font-size: 1.2rem;
+}
+
+.form-section {
+  padding: 3rem 1rem;
+}
+
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1C2A39;
+  font-weight: 600;
+}
+
+.features-section {
+  padding: 3rem 1rem;
+  background: #F8F9FA;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(176, 141, 87, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: #B08D57;
+  font-size: 1.5rem;
+}
+
+.feature-card h3 {
+  margin-bottom: 0.5rem;
+  color: #1C2A39;
+}
+
+.feature-card p {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .registration-hero {
+    padding: 2rem 1rem;
+  }
+
+  .logo-container h1 {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .registration-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+  }
+}

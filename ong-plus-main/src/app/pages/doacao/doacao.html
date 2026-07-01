@@ -1,0 +1,161 @@
+<div class="donation-container" *ngIf="!donationSuccess; else successTemplate">
+  <div class="donation-header">
+    <h2>Faça sua doação</h2>
+    <button class="close-btn" (click)="handleClose()">
+      <i class="bi bi-x"></i>
+    </button>
+  </div>
+
+  <div class="campaign-info">
+    <img [src]="campaignImage || 'assets/images/default-campaign.jpg'" alt="Campanha" class="campaign-image">
+    <h3>{{ campaignTitle }}</h3>
+  </div>
+
+  <div class="donation-steps">
+    <!-- Step 1: Valor -->
+    <div class="step" [class.active]="currentStep === 1">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <h3>Valor da Doação</h3>
+      </div>
+      <div class="step-content" *ngIf="currentStep === 1">
+        <div class="amount-options">
+          <button *ngFor="let amount of donationAmounts" 
+                  [class.selected]="donation.valor === amount && !customAmount"
+                  (click)="selectAmount(amount)">
+            R$ {{ amount | number }}
+          </button>
+        </div>
+        
+        <div class="custom-amount">
+          <label>Ou insira um valor personalizado:</label>
+          <div class="input-group">
+            <span class="currency">R$</span>
+            <input type="number" 
+                   [(ngModel)]="customAmount" 
+                   (change)="setCustomAmount()"
+                   min="1"
+                   placeholder="Outro valor">
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn-next" (click)="nextStep()" [disabled]="!donation.valor">
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Mensagem -->
+    <div class="step" [class.active]="currentStep === 2">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <h3>Mensagem de Apoio</h3>
+      </div>
+      <div class="step-content" *ngIf="currentStep === 2">
+        <textarea [(ngModel)]="donation.mensagem" 
+                  placeholder="Deixe uma mensagem de apoio para a campanha (opcional)..."
+                  maxlength="200"></textarea>
+        
+        <div class="anonymous-option">
+          <label>
+            <input type="checkbox" [(ngModel)]="donation.anonima">
+            Doação anônima
+          </label>
+          <span class="hint">Sua doação aparecerá como "Anônimo"</span>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn-prev" (click)="prevStep()">Voltar</button>
+          <button class="btn-next" (click)="nextStep()">Continuar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Pagamento -->
+    <div class="step" [class.active]="currentStep === 3">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <h3>Método de Pagamento</h3>
+      </div>
+      <div class="step-content" *ngIf="currentStep === 3">
+        <div class="payment-methods">
+          <div *ngFor="let method of paymentMethods" 
+               class="payment-method"
+               [class.selected]="selectedPaymentMethod === method"
+               (click)="selectedPaymentMethod = method">
+            <div class="method-icon">
+              <i [class]="getPaymentMethodIcon(method)"></i>
+            </div>
+            <div class="method-info">
+              <h4>{{ getPaymentMethodName(method) }}</h4>
+              <p>{{ getPaymentMethodDescription(method) }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="donation-summary">
+          <div class="summary-item">
+            <span>Valor da doação:</span>
+            <span>R$ {{ donation.valor | number:'1.2-2' }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Taxa de serviço:</span>
+            <span>R$ {{ calculateFee() | number:'1.2-2' }}</span>
+          </div>
+          <div class="summary-item total">
+            <span>Total:</span>
+            <span>R$ {{ (donation.valor! + calculateFee()) | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn-prev" (click)="prevStep()">Voltar</button>
+          <button class="btn-submit" (click)="nextStep()" [disabled]="isLoading">
+            <span *ngIf="!isLoading">Finalizar Doação</span>
+            <span *ngIf="isLoading">Processando...</span>
+          </button>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #successTemplate>
+  <div class="success-container">
+    <div class="success-icon">
+      <i class="bi bi-check-circle"></i>
+    </div>
+    <h2>Doação realizada com sucesso!</h2>
+    <p>Muito obrigado por sua contribuição. Você está fazendo a diferença!</p>
+    
+    <div class="donation-receipt">
+      <div class="receipt-item">
+        <span>Código:</span>
+        <span>#{{ generateReceiptCode() }}</span>
+      </div>
+      <div class="receipt-item">
+        <span>Valor:</span>
+        <span>R$ {{ donation.valor | number:'1.2-2' }}</span>
+      </div>
+      <div class="receipt-item">
+        <span>Data:</span>
+        <span>{{ getCurrentDate() | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    </div>
+
+    <div class="success-actions">
+      <button class="btn-share" (click)="shareDonation()">
+        <i class="bi bi-share"></i> Compartilhar
+      </button>
+      <button class="btn-finish" (click)="finishDonation()">
+        Concluir
+      </button>
+    </div>
+  </div>
+</ng-template>

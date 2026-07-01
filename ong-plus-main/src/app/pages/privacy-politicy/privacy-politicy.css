@@ -1,0 +1,57 @@
+.container-termos {
+    padding: 4rem 1rem;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+  }
+
+  .card-termos {
+    max-width: 800px;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 3rem;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  .card-termos h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #003366;
+  }
+
+  .card-termos h2 {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    color: #004080;
+  }
+
+  .card-termos p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-termos a {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  .card-termos a:hover {
+    color: #003366;
+    text-decoration: none;
+  }
+
+  .card-termos hr {
+    margin: 2.5rem 0;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  .last-note {
+    margin-top: 2rem;
+    font-weight: bold;
+    color: #555;
+  }
+  

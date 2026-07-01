@@ -1,0 +1,243 @@
+<div class="admin-luxury-layout d-flex flex-column min-vh-100">
+  <!-- Sidenav Container with Accent -->
+  <mat-sidenav-container class="luxury-sidenav-container flex-grow-1" [hasBackdrop]="isHandset">
+
+    <!-- Luxury Sidebar -->
+    <mat-sidenav #sidenav
+                 [(opened)]="sidenavOpened"
+                 [mode]="sidenavMode"
+                 class="luxury-sidenav"
+                 fixedInViewport="true"
+                 [fixedTopGap]="isHandset ? 56 : 0">
+
+      <!-- Sidebar Header with Gradient -->
+      <div class="sidenav-header luxury-header">
+        <div class="logo-container d-flex align-items-center mb-4">
+          <img src="logo-ong-white.svg" alt="ONG+" class="logo me-2 w-25">
+          <span class="app-name fw-bold">ONG+</span>
+
+        </div>
+
+        <!-- ONG Profile Card -->
+        <div class="ong-profile-card">
+          <div class="avatar-container">
+            <img [src]="avatarUrl" alt="Logo ONG" class="ong-avatar" />
+            <div class="verification-badge">
+              <mat-icon>verified</mat-icon>
+            </div>
+          </div>
+          <div class="ong-info">
+            <h3 class="ong-name">{{ usuarioNome }}</h3>
+            <p class="ong-mission">{{ currentOng.mission }}</p>
+            <div class="progress-container">
+              <span class="progress-label">Meta mensal: {{ currentOng.monthlyGoal }}%</span>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="currentOng.monthlyGoal"
+                class="luxury-progress"
+              ></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Luxury Menu -->
+      <mat-nav-list class="luxury-menu row">
+  <a mat-list-item routerLink="/campanhas" routerLinkActive="active" class="luxury-menu-item d-flex align-items-center">
+    <div class=" d-flex align-items-center justify-content-center test">
+      <mat-icon class="white">campaign</mat-icon>
+      <span class="menu-label flex-grow-1 text-white">Campanhas</span>
+    </div>
+
+  </a>
+
+  <!-- <a mat-list-item routerLink="/doacoes" routerLinkActive="active" class="luxury-menu-item d-flex align-items-center">
+    <div class="menu-icon-container d-flex align-items-center justify-content-center">
+      <mat-icon>volunteer_activism</mat-icon>
+      <span class="menu-label flex-grow-1 text-white">Doações</span>
+    </div>
+
+  </a> -->
+</mat-nav-list>
+
+      <!-- Sidebar Footer -->
+      <div class="sidenav-footer">
+        <button mat-flat-button color="warn" class="luxury-logout-btn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Sair da conta
+        </button>
+        <div class="luxury-signature">
+          <span>ONG+ </span>
+          <span class="version">v2.1.0</span>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <!-- Main Content -->
+    <mat-sidenav-content class="luxury-content d-flex flex-column">
+
+      <!-- Toolbar -->
+      <header class="luxury-toolbar">
+        <div class="toolbar-left">
+          <button mat-icon-button (click)="toggleSidenav()" class="luxury-menu-btn">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <h1 class="page-title">
+            <span class="title-main">{{ pageTitle }}</span>
+            <span class="title-sub">Bem-vindo de volta!</span>
+          </h1>
+        </div>
+
+
+
+
+        <div class="dropdown" #userMenu>
+    <div class="user-profile " data-bs-toggle="dropdown" aria-expanded="false">
+      <img [src]="avatarUrl" alt="Avatar" class="user-avatar" />
+      <div class="user-info">
+        <span class="user-name">{{ usuarioNome }}</span>
+        <span class="user-role">Administrador</span>
+      </div>
+
+    </div>
+
+    <ul class="dropdown-menu luxury-profile-menu">
+      <li class="dropdown-header">
+        <div class="menu-header">
+          <img [src]="avatarUrl" alt="Avatar" class="menu-avatar" />
+          <div class="menu-user-info">
+            <h4>{{ usuarioNome }}</h4>
+            <p>{{ email }}</p>
+          </div>
+        </div>
+      </li>
+      <li><mat-divider class="dropdown-divider"></mat-divider></li>
+      <li>
+        <a class="dropdown-item" routerLink="/perfil">
+          <mat-icon>account_circle</mat-icon>
+          <span>Meu Perfil</span>
+        </a>
+      </li>
+      <li><mat-divider class="dropdown-divider"></mat-divider></li>
+      <li>
+        <a class="dropdown-item" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Sair</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+      </header>
+
+      <!-- User Menu -->
+
+      <!-- Dashboard Content -->
+      <main class="luxury-dashboard">
+        <div class="luxury-stats-grid">
+          <div class="luxury-stat-card">
+            <div class="stat-icon">
+              <mat-icon>campaign</mat-icon>
+            </div>
+            <div class="stat-info">
+              <h3>{{ currentOng.campaigns }}</h3>
+              <p>Campanhas Ativas</p>
+            </div>
+            <!-- <div class="stat-trend positive">
+              <mat-icon>trending_up</mat-icon>
+              <span>+5%</span>
+            </div> -->
+          </div>
+
+          <div class="luxury-stat-card">
+            <div class="stat-icon">
+              <mat-icon>volunteer_activism</mat-icon>
+            </div>
+            <div class="stat-info">
+              <h3>R$ {{ currentOng.donations }}</h3>
+              <p>Doações Recebidas</p>
+            </div>
+            <!-- <div class="stat-trend positive">
+              <mat-icon>trending_up</mat-icon>
+              <span>+22%</span>
+            </div> -->
+          </div>
+
+          <div class="luxury-stat-card">
+            <div class="stat-icon">
+              <mat-icon>groups</mat-icon>
+            </div>
+            <div class="stat-info">
+              <h3>{{ currentOng.volunteers }}</h3>
+              <p>Novos Doadores</p>
+            </div>
+            <!-- <div class="stat-trend negative">
+              <mat-icon>trending_down</mat-icon>
+              <span>-3%</span>
+            </div> -->
+          </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="luxury-content-grid">
+          <div class="luxury-chart-card">
+            <div class="card-header">
+              <h3>Arrecadação Mensal</h3>
+              <div class="time-filter">
+                <button mat-button class="active">Mês</button>
+                <button mat-button>Trimestre</button>
+                <button mat-button>Ano</button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <div class="chart-placeholder">
+                <p>Futura implementação com gráficos</p>
+                <!-- <img src="/grafico.jpg"  alt="Gráfico de doações" /> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="luxury-activities-card">
+            <div class="card-header">
+              <h3>Atividades Recentes</h3>
+              <button mat-icon-button>
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+            <span>Sem movimentações</span>
+            <!-- <div class="activities-list">
+              <div class="activity-item" *ngFor="let activity of recentActivities">
+                <div class="activity-avatar">
+                  <img *ngIf="activity.avatar" [src]="activity.avatar" alt="Usuário" />
+                  <div *ngIf="!activity.avatar" class="initials-avatar">{{ activity.initials }}</div>
+                </div>
+                <div class="activity-details">
+                  <p>
+                    <strong>{{ activity.user || activity.entity }}</strong> {{ activity.action }}
+                  </p>
+                  <span class="activity-time">{{ activity.time }}</span>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+
+        <!-- Additional Content -->
+        <div class="luxury-features-grid">
+
+
+          <div class="luxury-feature-card">
+            <div class="feature-icon">
+              <mat-icon>support_agent</mat-icon>
+            </div>
+            <h4>Suporte Prioritário</h4>
+            <p>Atendimento dedicado para resolver suas dúvidas rapidamente</p>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+    <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

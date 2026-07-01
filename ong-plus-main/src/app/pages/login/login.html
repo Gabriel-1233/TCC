@@ -1,0 +1,104 @@
+<section class="login-container">
+  <!-- Efeito de fundo -->
+  <div class="login-background"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="login-content">
+    <!-- Logo e saudação -->
+    <div class="login-brand">
+      <div class="logo-wrapper">
+        <img src="logo-icon.svg" alt="Logo do ONG+" width="100" height="auto">
+      </div>
+      <h1>ONG+</h1>
+      <p class="brand-slogan">Conectando pessoas a causas sociais</p>
+    </div>
+
+    <!-- Card de login -->
+    <div class="login-card">
+      <div class="card-header">
+        <h2>Bem-vindo de volta!</h2>
+        <p>Entre na sua conta para continuar</p>
+      </div>
+
+      <form class="login-form" (ngSubmit)="login(loginForm)" #loginForm="ngForm" novalidate>
+        <!-- Campo de e-mail -->
+        <div class="form-group">
+          <label for="email">E-mail*</label>
+          <div class="input-with-icon">
+            <i class="bi bi-envelope"></i>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              [(ngModel)]="email"
+              required
+              #emailRef="ngModel"
+              placeholder="seu@email.com"
+              autocomplete="username"
+            />
+          </div>
+          <p class="erro" *ngIf="formSubmetido && emailRef.invalid">E-mail é obrigatório</p>
+        </div>
+
+        <!-- Campo de senha -->
+        <div class="form-group">
+          <label for="password">Senha*</label>
+          <div class="input-with-icon">
+            <i class="bi bi-lock"></i>
+            <input
+              id="password"
+              name="senha"
+              [type]="hidePassword ? 'password' : 'text'"
+              [(ngModel)]="senha"
+              required
+              #senhaRef="ngModel"
+              placeholder="Sua senha"
+              autocomplete="current-password"
+              class="password-input"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="hidePassword = !hidePassword"
+              aria-label="Mostrar/ocultar senha"
+            >
+              <i class="bi" [ngClass]="hidePassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </button>
+          </div>
+          <p class="erro" *ngIf="formSubmetido && senhaRef.invalid">Senha é obrigatória</p>
+        </div>
+
+        <!-- Opções extras -->
+        <div class="form-options">
+          <div class="remember-me">
+            <input type="checkbox" id="remember">
+            <label for="remember">Manter conectado</label>
+          </div>
+          <a routerLink="/recuperar-senha" class="forgot-password">Esqueceu a senha?</a>
+        </div>
+
+        <button type="submit" class="login-button">
+          <span>Entrar</span>
+          <i class="bi bi-arrow-right"></i>
+        </button>
+
+        <!-- Erro da API -->
+        <p *ngIf="erro && !loginForm.invalid" class="erro">{{ erro }}</p>
+
+        <!-- Divisor -->
+        <div class="divider">
+          <span>ou</span>
+        </div>
+
+        <!-- Cadastro -->
+        <div class="signup-link">
+          Não tem uma conta? <a routerLink="/cadastrar">Cadastre-se</a>
+        </div>
+      </form>
+    </div>
+
+    <a routerLink="/home" class="back-button">
+      <i class="bi bi-arrow-left"></i> Voltar para a Home
+    </a>
+  </div>
+</section>

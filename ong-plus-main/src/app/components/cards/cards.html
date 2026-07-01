@@ -1,0 +1,101 @@
+<div class="premium-card" (click)="openPremiumModal()">
+  <div class="card-image-container">
+    <img [src]="getImageUrl()" [alt]="campaign.titulo" class="card-image" />
+    <div class="image-overlay"></div>
+  </div>
+
+  <div class="card-content">
+    <div class="card-category">{{ campaign.categoria | titlecase }}</div>
+    <h3 class="card-title">{{ campaign.titulo }}</h3>
+    <p class="card-description">{{ truncate(campaign.descricao, 100) }}</p>
+
+    <div class="card-progress">
+      <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
+      <div class="progress-info">
+        <span>{{ campaign.arrecadado | currency:'BRL':'symbol':'1.2-2' }}</span>
+        <span>{{ getProgressPercentage() | number:'1.0-0' }}%</span>
+      </div>
+    </div>
+
+    <div class="card-meta">
+      <span class="meta-item">
+        <i class="bi bi-geo-alt"></i> {{ campaign.local?.cidade || 'Online' }}
+      </span>
+      <span class="meta-item">
+        <i class="bi bi-people"></i> {{ campaign.avaliacaoCount || 0 }}
+      </span>
+    </div>
+  </div>
+
+  <div class="card-hover">
+    <button class="btn-donate" (click)="openDonationModal($event)">Doar Agora</button>
+  </div>
+</div>
+
+<!-- Modal Premium -->
+<div class="premium-modal-overlay" *ngIf="showPremiumModal" (click)="closeModal($event)">
+  <div class="premium-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close-btn" (click)="closeModal($event)">
+      <i class="bi bi-x"></i>
+    </button>
+
+    <div class="modal-content">
+      <div class="modal-image-container">
+        <img [src]="getImageUrl()" [alt]="campaign.titulo" class="modal-image" />
+        <div class="modal-badge">DESTAQUE</div>
+      </div>
+
+      <div class="modal-main">
+        <div class="modal-header">
+          <div class="modal-category">{{ campaign.categoria | titlecase }}</div>
+          <h2 class="modal-title">{{ campaign.titulo }}</h2>
+          <div class="modal-ong">
+            <img src="/logo-icon.svg" alt="ONG" class="ong-icon" />
+            <span>{{ campaign.ong?.nome || 'ONG Parceira' }}</span>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <p class="modal-description">{{ campaign.descricao }}</p>
+
+          <div class="modal-stats">
+            <div class="stat-item">
+              <div class="stat-value">{{ campaign.arrecadado | currency:'BRL':'symbol':'1.2-2' }}</div>
+              <div class="stat-label">Arrecadado</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">{{ campaign.meta | currency:'BRL':'symbol':'1.2-2' }}</div>
+              <div class="stat-label">Meta</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">{{ getProgressPercentage() | number:'1.0-0' }}%</div>
+              <div class="stat-label">Concluído</div>
+            </div>
+          </div>
+
+          <div class="modal-progress">
+            <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn-secondary" (click)="closeModal($event)">Voltar</button>
+          <button class="btn-primary" (click)="openDonationModal($event)">Doar Agora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Doação -->
+<div class="modal-overlay" *ngIf="showDonationModal">
+  <div class="modal-content">
+    <app-donation
+      [campaignId]="campaign._id"
+      [campaignTitle]="campaign.titulo"
+      [campaignImage]="getImageUrl()"
+      (closeModal)="closeModal()"
+      (donationComplete)="handleDonationComplete($event)">
+    </app-donation>
+  </div>
+</div>

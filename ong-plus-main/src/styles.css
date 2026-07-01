@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+    --primary: #4361ee;
+    --primary-light: rgba(67, 97, 238, 0.1);
+    --primary-dark: #3a0ca3;
+    --secondary: #f72585;
+    --success: #4cc9f0;
+    --warning: #f8961e;
+    --danger: #ef233c;
+    --dark: #1c2a39;
+    --darker: #0d1b2a;
+    --light: #f8f9fa;
+    --lighter: #ffffff;
+    --gold: #ffd166;
+
+    --primary-dark: #1C2A39;
+    --primary-darker: #0F1721;
+    --accent-gold: #B08D57;
+    --accent-light-gold: #c5a23f;
+    --neutral-beige: #D6CFC7;
+    --neutral-light: #F8F5F0;
+    --text-dark: #333;
+    --text-medium: #6c757d;
+    --text-light: #e2e8f0;
+    --error: #dc3545;
+    --error-light: #f5c6cb;
+
+    --luxury-primary: #1a3a6e;
+  --luxury-secondary: #2d5a96;
+  --luxury-accent: #d4af37;
+  --luxury-dark: #0f1c2e;
+  --luxury-light: #f8f9fa;
+  --luxury-success: #28a745;
+  --luxury-danger: #dc3545;
+  --luxury-warning: #ffc107;
+  --luxury-info: #17a2b8;
+
+    --font-heading: 'Playfair Display', serif;
+    --font-subheading: 'Montserrat', sans-serif;
+    --font-body: 'Lora', serif;
+
+    --transition: all 0.4s ease;
+  }

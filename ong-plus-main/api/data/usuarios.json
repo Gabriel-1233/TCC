@@ -1,0 +1,63 @@
+[
+  {
+    "_id": "248ee1c8-2c46-4e16-97b8-0111c0e2951c",
+    "nome": "bruno henrique",
+    "cpf": "07737286519",
+    "email": "bruno.h.santos@7ba.estudante.senai.br",
+    "senha": "0123456789B",
+    "telefone": "71985210285",
+    "nascimento": "2007-05-31",
+    "genero": "Masculino",
+    "interesses": [],
+    "receberNewsletter": false,
+    "aceitouTermos": true,
+    "tipo": "doador",
+    "dataCriacao": "2025-07-31T21:04:46.483Z",
+    "ativo": false
+  },
+  {
+    "_id": "1e515e6a-d1b8-4eb5-85a7-c60ce6826f43",
+    "nome": "cadastre-se pets",
+    "cnpj": "33000167000101",
+    "email": "bhas795001@gmail.com",
+    "senha": "0123456789B",
+    "telefone": "71985210285",
+    "areaAtuacao": "Animais",
+    "endereco": {
+      "rua": "",
+      "numero": "",
+      "complemento": "",
+      "cidade": "",
+      "estado": "",
+      "cep": ""
+    },
+    "site": "",
+    "descricao": "teste, tudo é permitido mas nem tudo edifica",
+    "aceitouTermos": true,
+    "tipo": "ong",
+    "dataCriacao": "2025-08-01T00:19:51.408Z",
+    "fotoPerfil": "",
+    "areasAtuacao": [],
+    "redesSociais": {
+      "facebook": "",
+      "instagram": "",
+      "twitter": "",
+      "linkedin": ""
+    }
+  },
+  {
+    "_id": "a256447d-3d30-4a52-8824-88449417a8fb",
+    "nome": "bruno henrique",
+    "cpf": "07737286519",
+    "email": "bhas795002@gmail.com",
+    "senha": "0123456789B",
+    "telefone": "",
+    "nascimento": "2007-05-31",
+    "genero": "Masculino",
+    "interesses": [],
+    "receberNewsletter": false,
+    "aceitouTermos": true,
+    "tipo": "doador",
+    "dataCriacao": "2025-08-02T14:48:53.236Z"
+  }
+]

@@ -1,0 +1,167 @@
+<form class="ong-form" #formRef="ngForm" (ngSubmit)="cadastrarOng(formRef)">
+  <div class="form-grid">
+    <!-- Nome da ONG -->
+    <div class="form-group">
+      <label>Nome da ONG *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-building"></i>
+        <input
+          type="text"
+          [(ngModel)]="ong.nome"
+          name="nome"
+          required
+          #nome="ngModel"
+          [class.is-invalid]="nome.invalid && nome.touched"
+        />
+      </div>
+      <div *ngIf="nome.invalid && nome.touched" class="error-msg">Nome da ONG é obrigatório.</div>
+    </div>
+
+
+   <!-- CNPJ -->
+<!-- CNPJ -->
+<div class="form-group">
+  <label for="cnpj">CNPJ *</label>
+  <div class="input-with-icon">
+    <i class="bi bi-file-text"></i>
+    <input
+      id="cnpj"
+      type="text"
+      name="cnpj"
+      required
+      [(ngModel)]="ong.cnpj"
+      #cnpj="ngModel"
+      (ngModelChange)="onCnpjChange($event)"
+      mask="00.000.000/0000-00"
+      [class.is-invalid]="(cnpj.invalid && cnpj.touched) || (!cnpjValido && ong.cnpj.length > 0)"
+    />
+  </div>
+
+  <div *ngIf="cnpj.invalid && cnpj.touched" class="error-msg">CNPJ é obrigatório.</div>
+  <div *ngIf="!cnpjValido && ong.cnpj.length > 0" class="error-msg">CNPJ inválido.</div>
+</div>
+
+
+    <!-- E‑mail -->
+    <div class="form-group">
+      <label>E‑mail *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-envelope"></i>
+        <input
+          type="email"
+          [(ngModel)]="ong.email"
+          name="email"
+          required
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && email.touched"
+        />
+      </div>
+      <div *ngIf="email.invalid && email.touched" class="error-msg">E-mail inválido ou obrigatório.</div>
+    </div>
+
+    <!-- Senha -->
+    <div class="form-group">
+      <label>Senha *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-lock"></i>
+        <input
+          type="password"
+          [(ngModel)]="ong.senha"
+          name="senha"
+          required
+          #senha="ngModel"
+          [class.is-invalid]="(senha.invalid || !senhaValida) && senha.touched"
+        />
+      </div>
+      <div *ngIf="senha.invalid && senha.touched" class="error-msg">Senha é obrigatória.</div>
+      <div *ngIf="!senhaValida && senha.touched" class="error-msg">
+        A senha deve ter no mínimo 8 caracteres, uma letra maiúscula e um número.
+      </div>
+    </div>
+
+    <!-- Telefone -->
+    <div class="form-group">
+      <label>Telefone *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-telephone"></i>
+        <input
+          type="tel"
+          [(ngModel)]="ong.telefone"
+          name="telefone"
+          required
+          mask="(00) 00000-0000"
+          #telefone="ngModel"
+          [class.is-invalid]="telefone.invalid && telefone.touched"
+        />
+      </div>
+      <div *ngIf="telefone.invalid && telefone.touched" class="error-msg">Telefone é obrigatório.</div>
+    </div>
+
+    <!-- Área de atuação -->
+    <div class="form-group">
+      <label>Área de atuação *</label>
+      <select
+        [(ngModel)]="ong.areaAtuacao"
+        name="areaAtuacao"
+        required
+        #areaAtuacao="ngModel"
+        [class.is-invalid]="areaAtuacao.invalid && areaAtuacao.touched"
+      >
+        <option value="" disabled selected>Selecione</option>
+        <option *ngFor="let a of areasAtuacao" [value]="a">{{ a }}</option>
+      </select>
+      <div *ngIf="areaAtuacao.invalid && areaAtuacao.touched" class="error-msg">
+        Área de atuação é obrigatória.
+      </div>
+    </div>
+
+    <!-- Endereço -->
+    <div class="form-group full-width">
+      <label>Endereço completo</label>
+      <div class="input-with-icon">
+        <i class="bi bi-geo-alt"></i>
+        <input type="text" [(ngModel)]="ong.endereco" name="endereco" />
+      </div>
+    </div>
+
+    <!-- Site/Instagram -->
+    <div class="form-group full-width">
+      <label>Site ou Instagram</label>
+      <div class="input-with-icon">
+        <i class="bi bi-link"></i>
+        <input type="text" [(ngModel)]="ong.site" name="site" />
+      </div>
+    </div>
+
+    <!-- Descrição -->
+    <div class="form-group full-width">
+      <label>Descrição da ONG</label>
+      <textarea [(ngModel)]="ong.descricao" name="descricao" rows="3"></textarea>
+    </div>
+
+    <!-- Termos -->
+    <div class="form-group full-width">
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="termos-ong"
+          [(ngModel)]="ong.aceitouTermos"
+          name="termos"
+          required
+          #termos="ngModel"
+          [class.is-invalid]="termos.invalid && termos.touched"
+        />
+        <label for="termos-ong">
+          Li e aceito os <a routerLink="/termos-de-uso">termos de uso</a> e <a routerLink="/policy-privacy">política de privacidade</a> *
+        </label>
+      </div>
+      <div *ngIf="termos.invalid && termos.touched" class="error-msg">
+        Você precisa aceitar os termos.
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="submit-button">
+    <i class="bi bi-check-circle"></i> Cadastrar como ONG
+  </button>
+</form>

@@ -1,0 +1,105 @@
+<!-- campaigns.component.html -->
+<app-header></app-header>
+<div class="campaigns-container">
+  <div class="header">
+    <h1>Campanhas</h1>
+    <button mat-raised-button color="primary" (click)="openNewCampaignDialog()">
+      <mat-icon>add</mat-icon>
+      Nova Campanha
+    </button>
+  </div>
+
+  <mat-card class="filters-card">
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Pesquisar</mat-label>
+        <input matInput placeholder="Digite para buscar..." [(ngModel)]="searchTerm" (keyup)="applyFilters()">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoria</mat-label>
+        <mat-select [(ngModel)]="selectedCategory" (selectionChange)="applyFilters()">
+          <mat-option value="">Todas</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{ getCategoryName(category) }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilters()">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="ativa">Ativas</mat-option>
+          <mat-option value="encerrada">Encerradas</mat-option>
+          <mat-option value="suspensa">Suspensas</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <div class="campaigns-grid">
+    <mat-card class="campaign-card" *ngFor="let campaign of filteredCampaigns">
+      <div class="campaign-image">
+        <img [src]="campaign.imagem || '/logo-ong-white.svg'" [alt]="campaign.titulo">
+        <div class="campaign-status" [ngClass]="campaign.status">
+          {{ getStatusName(campaign.status) }}
+        </div>
+      </div>
+
+      <div class="campaign-content">
+        <div class="campaign-header">
+          <h3>{{ campaign.titulo }}</h3>
+          <span class="campaign-category">{{ getCategoryName(campaign.categoria) }}</span>
+        </div>
+
+        <p class="campaign-description">
+          {{ campaign.descricao.length > 120 ? (campaign.descricao | slice:0:120) + '...' : campaign.descricao }}
+        </p>
+
+        <div class="campaign-progress">
+          <mat-progress-bar
+            mode="determinate"
+            [value]="(campaign.arrecadado / campaign.meta) * 100"
+            [color]="(campaign.arrecadado / campaign.meta) * 100 >= 100 ? 'primary' : 'accent'">
+          </mat-progress-bar>
+          <div class="progress-info">
+            <span>Arrecadado: {{ campaign.arrecadado | currency:'BRL':'symbol':'1.2-2' }}</span>
+            <span>Meta: {{ campaign.meta | currency:'BRL':'symbol':'1.2-2' }}</span>
+            <span>{{ (campaign.arrecadado / campaign.meta) * 100 | number:'1.0-0' }}%</span>
+          </div>
+        </div>
+
+        <div class="campaign-footer">
+          <div class="campaign-ong">
+            <img [src]="campaign.ong.logo || '/logo-ong-white.svg'" class="ong-logo">
+            <span>{{ campaign.ong.nome }}</span>
+          </div>
+
+          <div class="campaign-actions">
+            <button mat-icon-button color="primary" (click)="editCampaign(campaign)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteCampaign(campaign)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <mat-paginator
+    [length]="filteredCampaigns.length"
+    [pageSize]="6"
+    [pageSizeOptions]="[6, 12, 24]"
+    showFirstLastButtons>
+  </mat-paginator>
+
+  <div *ngIf="loading" class="loading-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+</div>
+<app-footer></app-footer>

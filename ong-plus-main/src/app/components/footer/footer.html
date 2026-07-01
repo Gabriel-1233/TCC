@@ -1,0 +1,66 @@
+<footer class="unexpected-footer">
+  <div class="footer-container">
+   <div class="footer-mission">
+  <div class="mission-toggle" (click)="toggleMission()">
+    <div class="toggle-icon">
+      <i class="bi" [class.bi-eye]="!showMission" [class.bi-eye-slash]="showMission"></i>
+    </div>
+    <div class="mission-statement" *ngIf="showMission">
+      <h4>Nossa Missão</h4>
+      <p>Transformar a forma como pessoas ajudam causas sociais através da tecnologia</p>
+      <div class="mission-progress">
+        <div class="progress-bar" [style.width.%]="missionProgress"></div>
+      </div>
+      <small>{{missionProgress}}% alcançado</small>
+    </div>
+    <div class="toggle-label" *ngIf="!showMission">Ver Missão</div>
+  </div>
+</div>
+    <!-- Conteúdo central -->
+    <div class="footer-main">
+      <div class="footer-logo">
+        <img src="logo-icon.svg" alt="Logo do ONG+" width="100" height="auto">
+        <span>ONG+</span>
+      </div>
+
+      <div class="footer-links">
+        <a routerLink="/quem-somos" class="link-item">
+          <span class="link-number">01</span>
+          <span class="link-text">Quem Somos</span>
+        </a>
+        <a routerLink="/explorar" class="link-item">
+          <span class="link-number">02</span>
+          <span class="link-text">Explorar</span>
+        </a>
+        <a routerLink="/cadastrar" class="link-item">
+          <span class="link-number">03</span>
+          <span class="link-text">Cadastrar</span>
+        </a>
+        <a routerLink="/policy-privacy" class="link-item">
+          <span class="link-number">04</span>
+          <span class="link-text">Politica de Privacidade</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Elemento interativo direito -->
+    <div class="footer-social">
+      <div class="social-container">
+        <a href="https://github.com/Brunohsdev" target="_blank" class="social-icon">
+          <i class="bi bi-github"></i>
+          <span class="tooltip">GitHub</span>
+        </a>
+        <a href="https://www.linkedin.com/in/bruno-santos-9b24b035a/" target="_blank" class="social-icon">
+          <i class="bi bi-linkedin"></i>
+          <span class="tooltip">LinkedIn</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Assinatura com efeito de máquina de escrever -->
+  <div class="footer-signature">
+    <p class="typewriter">© {{currentYear}} ONG+ | Feito por Bruno</p>
+  </div>
+</footer>

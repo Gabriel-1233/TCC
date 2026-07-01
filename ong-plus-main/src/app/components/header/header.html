@@ -1,0 +1,82 @@
+<header class="navbar-container">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/home">
+        <div class="brand-container">
+          <img src="logo-icon.svg" alt="Logo do ONG+" width="50" height="auto">
+          <span class="brand-name">ONG+</span>
+          <span class="brand-slogan">Conectando causas</span>
+        </div>
+      </a>
+
+      <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/explorar" routerLinkActive="active">
+              <i class="bi bi-search me-1"></i> Explorar
+            </a>
+          </li>
+          <!-- <li class="nav-item dropdown" *ngIf="logado">
+            <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" *ngIf="logado && tipoUsuario !== 'ong'">
+              <i class="bi bi-heart me-1"></i> Minhas Causas
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/minhas-doacoes">Doações</a></li>
+              <li><a class="dropdown-item" routerLink="/minhas-ongs">ONGs Favoritas</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" routerLink="/historico">Histórico</a></li>
+            </ul>
+          </li> -->
+          <li class="nav-item" *ngIf="logado && tipoUsuario === 'ong'">
+            <a class="nav-link" routerLink="/dashboard-ong" routerLinkActive="active">
+              <i class="bi bi-graph-up me-1"></i> Dashboard
+            </a>
+          </li>
+        </ul>
+
+        <div class="search-container" *ngIf="mostrarBusca">
+          <div class="search-input-group">
+            <input class="form-control" type="search" placeholder="Buscar campanhas..." [(ngModel)]="busca">
+            <button class="search-btn">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="user-area" *ngIf="logado; else loginArea">
+          <div class="dropdown">
+            <button class="user-profile dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <ng-container *ngIf="avatarUrl; else defaultAvatar">
+                <img [src]="avatarUrl" alt="Perfil" class="user-avatar" />
+              </ng-container>
+              <ng-template #defaultAvatar>
+                <mat-icon class="user-avatar-icon">person</mat-icon>
+              </ng-template>
+              <span class="user-name">{{ usuarioNome || 'Usuário' }}</span>
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" routerLink="/perfil"><i class="bi bi-person me-2"></i>Meu Perfil</a></li>
+              <!-- <li><a class="dropdown-item" routerLink="/configuracoes"><i class="bi bi-gear me-2"></i>Configurações</a></li> -->
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item text-danger" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <ng-template #loginArea>
+          <div class="auth-buttons">
+            <a class="btn btn-outline-light btn-sm" routerLink="/login">Entrar</a>
+            <a class="btn btn-primary btn-sm" routerLink="/cadastrar">Cadastrar</a>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-progress-bar"></div>
+</header>

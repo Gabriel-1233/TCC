@@ -1,0 +1,341 @@
+<app-header></app-header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold mb-4">
+            Transforme <br>
+            <span class="typed-text" @typingAnimation>{{currentText}}</span>
+          </h1>
+          <p class="lead mb-4">ONG+ conecta você a causas que realmente importam, de forma simples e transparente.</p>
+
+          <div class="d-flex gap-3">
+            <a routerLink="/explorar" class="btn btn-primary btn-lg px-4 btn-pulse">
+              <i class="bi bi-heart-fill me-2"></i> Quero ajudar
+            </a>
+            <a routerLink="/cadastrar" class="btn btn-outline-light btn-lg px-4">
+              <i class="bi bi-building me-2"></i> Cadastrar ONG
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-image-container">
+            <img src="/pra-pagina-home.jpg" alt="Pessoas se ajudando" class="img-fluid floating" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="campaigns-section py-5 bg-light">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-center">ONG+ em Destaque</h2>
+
+    <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <div
+          class="carousel-item"
+          *ngFor="let slide of slides; let i = index"
+          [class.active]="i === 0">
+
+          <div class="d-flex justify-content-center">
+            <div class="card text-white shadow-sm border-0" style="max-width: 900px; width: 100%; position: relative;">
+              <a *ngIf="slide.link" [routerLink]="slide.link" class="text-white" >
+              <img [src]="slide.imagem" class="card-img" [alt]="slide.titulo">
+              <div class="card-img-overlay d-flex flex-column justify-content-center text-center bg-dark bg-opacity-50">
+                <h3 class="card-title fw-bold text-white">{{ slide.titulo }}</h3>
+                <p class="card-text text-white">{{ slide.descricao }}</p>
+                  {{ slide.botaoTexto }}
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Controles -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próximo</span>
+      </button>
+    </div>
+  </div>
+</section>
+<section class="featured-campaigns py-5 bg-white">
+
+  <div class="container">
+
+    <div class="text-center mb-5">
+
+      <h2 class="fw-bold">
+        <i class="bi bi-stars text-warning"></i>
+        Campanhas em Destaque
+      </h2>
+
+      <p class="text-muted">
+        Ajude uma causa e transforme vidas.
+      </p>
+
+    </div>
+
+    <div class="row g-4">
+
+      <div
+        class="col-lg-4 col-md-6"
+        *ngFor="let campaign of featuredCampaigns">
+
+        <div class="card campaign-card h-100 shadow">
+
+          <img
+
+            [src]="campaign.imagem[0]"
+
+            class="card-img-top"
+
+            [alt]="campaign.titulo">
+
+          <div class="card-body d-flex flex-column">
+
+            <span class="badge bg-success mb-2 align-self-start">
+
+              {{campaign.categoria}}
+
+            </span>
+
+            <h5 class="fw-bold">
+
+              {{campaign.titulo}}
+
+            </h5>
+
+            <p class="text-muted">
+
+              {{campaign.descricao}}
+
+            </p>
+
+            <small class="mb-3 text-secondary">
+
+              <i class="bi bi-building"></i>
+
+              {{campaign.ong.nome}}
+
+            </small>
+
+            <div class="progress mb-2">
+
+              <div
+
+                class="progress-bar"
+
+                [style.width]="(campaign.arrecadado/campaign.meta)*100 + '%'">
+
+              </div>
+
+            </div>
+
+            <small>
+
+              R$
+
+              {{campaign.arrecadado}}
+
+              de
+
+              R$
+
+              {{campaign.meta}}
+
+            </small>
+
+            <button
+
+              class="btn btn-primary mt-auto">
+
+              Ver campanha
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+  <section class="how-it-works py-5" *ngIf="howItWorksSteps?.length">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Como Funciona</h2>
+        <p class="text-muted">Três passos simples para fazer a diferença</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4" *ngFor="let step of howItWorksSteps">
+          <div class="text-center p-4 h-100">
+            <div class="step-icon mb-4" [ngClass]="'bg-' + step.color">
+              <i [class]="'bi ' + step.icon"></i>
+            </div>
+            <h4 class="fw-bold mb-3">{{ step.title }}</h4>
+            <p class="text-muted">{{ step.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<section class="py-5 bg-light">
+
+  <div class="container">
+
+    <div class="row text-center">
+
+      <div class="col-md-6 col-lg-3 mb-4">
+
+        <i class="bi bi-megaphone-fill display-4 text-primary"></i>
+
+        <h2 class="fw-bold mt-3">
+
+          {{ totalCampanhas }}
+
+        </h2>
+
+        <p>Campanhas Ativas</p>
+
+      </div>
+
+      <div class="col-md-6 col-lg-3 mb-4">
+
+        <i class="bi bi-cash-stack display-4 text-success"></i>
+
+        <h2 class="fw-bold mt-3">
+
+          R$ {{ totalArrecadado }}
+
+        </h2>
+
+        <p>Arrecadados</p>
+
+      </div>
+
+      <div class="col-md-6 col-lg-3 mb-4">
+
+        <i class="bi bi-building display-4 text-warning"></i>
+
+        <h2 class="fw-bold mt-3">
+
+          {{ featuredCampaigns.length }}
+
+        </h2>
+
+        <p>Campanhas em Destaque</p>
+
+      </div>
+
+      <div class="col-md-6 col-lg-3 mb-4">
+
+        <i class="bi bi-heart-fill display-4 text-danger"></i>
+
+        <h2 class="fw-bold mt-3">
+
+          100%
+
+        </h2>
+
+        <p>Compromisso Social</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+  <!-- Depoimentos -->
+  <section class="testimonials-section py-5 bg-light">
+    <div class="container">
+      <div class="section-header text-center mb-5">
+        <h2 class="fw-bold">O que dizem sobre nós</h2>
+        <p class="text-muted">Depoimentos de quem já faz parte da mudança</p>
+      </div>
+
+      <div class="testimonial-container">
+        <div class="testimonial-item" *ngFor="let testimonial of testimonials; let i = index"
+             [class.active]="i === activeTestimonial">
+          <div class="testimonial-content">
+            <p class="testimonial-text">"{{testimonial.text}}"</p>
+            <div class="testimonial-author">
+              <img [src]="testimonial.avatar" [alt]="testimonial.author" />
+              <div>
+                <h5>{{testimonial.author}}</h5>
+                <small>{{testimonial.role}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <div class="testimonial-dots">
+          <span *ngFor="let item of testimonials; let i = index"
+                [class.active]="i === activeTestimonial"
+                (click)="activeTestimonial = i"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- About Section -->
+  <section class="about-section py-5">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h2 class="fw-bold mb-4">Nossa Missão</h2>
+          <p class="lead text-muted">
+            ONG+ é a ponte digital entre quem quer ajudar e quem precisa de ajuda. Facilitamos a conexão entre doadores, voluntários e organizações que transformam vidas diariamente.
+          </p>
+          <a routerLink="/quem-somos" class="btn btn-outline-secondary mt-3">
+            <i class="bi bi-info-circle me-2"></i>Conheça nossa história
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+
+  <section class="cta-section py-5 text-white" @ctaAnimation>
+    <div class="cta-background"></div>
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mb-4 mb-lg-0">
+          <h2 class="fw-bold mb-3">Pronto para fazer a diferença?</h2>
+          <p class="lead mb-0">Junte-se a milhares de pessoas que estão transformando vidas todos os dias.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a routerLink="/explorar" class="btn btn-light btn-lg px-4 me-2">
+            <i class="bi bi-search me-2"></i> Explorar
+          </a>
+          <a routerLink="/cadastrar" class="btn btn-outline-light btn-lg px-4">
+            <i class="bi bi-building me-2"></i> Cadastrar
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

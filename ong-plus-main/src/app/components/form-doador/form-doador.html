@@ -1,0 +1,176 @@
+<form class="donor-form" #formRef="ngForm" (ngSubmit)="cadastrarDoador(formRef)">
+  <div class="form-grid">
+    <!-- Nome -->
+    <div class="form-group">
+      <label>Nome completo *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-person"></i>
+        <input
+          type="text"
+          [(ngModel)]="doador.nome"
+          name="nome"
+          required
+          #nome="ngModel"
+          [class.is-invalid]="nome.invalid && nome.touched"
+        />
+      </div>
+      <div *ngIf="nome.invalid && nome.touched" class="error-msg">Nome é obrigatório.</div>
+    </div>
+
+    <!-- CPF -->
+    <div class="form-group">
+      <label>CPF *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-card-text"></i>
+        <input
+          type="text"
+          [(ngModel)]="doador.cpf"
+          name="cpf"
+          required
+          mask="000.000.000-00"
+          #cpf="ngModel"
+          [class.is-invalid]="(cpf.invalid || !cpfValido) && cpf.touched"
+        />
+      </div>
+      <div *ngIf="cpf.invalid && cpf.touched" class="error-msg">CPF é obrigatório.</div>
+      <div *ngIf="!cpfValido && cpf.touched" class="error-msg">CPF inválido.</div>
+    </div>
+
+    <!-- E‑mail -->
+    <div class="form-group">
+      <label>E‑mail *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-envelope"></i>
+        <input
+          type="email"
+          [(ngModel)]="doador.email"
+          name="email"
+          required
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && email.touched"
+        />
+      </div>
+      <div *ngIf="email.invalid && email.touched" class="error-msg">E-mail inválido ou obrigatório.</div>
+    </div>
+
+    <!-- Senha -->
+    <div class="form-group">
+      <label>Senha *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-lock"></i>
+        <input
+          type="password"
+          [(ngModel)]="doador.senha"
+          name="senha"
+          required
+          #senha="ngModel"
+          [class.is-invalid]="(senha.invalid || !senhaValida) && senha.touched"
+        />
+      </div>
+      <div *ngIf="senha.invalid && senha.touched" class="error-msg">Senha é obrigatória.</div>
+      <div *ngIf="!senhaValida && senha.touched" class="error-msg">
+        A senha deve ter no mínimo 8 caracteres, uma letra maiúscula e um número.
+      </div>
+    </div>
+
+    <!-- Telefone -->
+    <div class="form-group">
+      <label>Telefone</label>
+      <div class="input-with-icon">
+        <i class="bi bi-telephone"></i>
+        <input type="tel" [(ngModel)]="doador.telefone" name="telefone" mask="(00) 00000-0000" />
+      </div>
+    </div>
+
+    <!-- Data de nascimento -->
+    <div class="form-group">
+      <label>Data de nascimento *</label>
+      <div class="input-with-icon">
+        <i class="bi bi-calendar"></i>
+        <input
+          type="date"
+          [(ngModel)]="doador.nascimento"
+          name="nascimento"
+          required
+          #nascimento="ngModel"
+          [class.is-invalid]="(nascimento.invalid || !idadeValida) && nascimento.touched"
+        />
+      </div>
+      <div *ngIf="nascimento.invalid && nascimento.touched" class="error-msg">
+        Data de nascimento é obrigatória.
+      </div>
+      <div *ngIf="!idadeValida && nascimento.touched" class="error-msg">
+        Você deve ter pelo menos 18 anos.
+      </div>
+    </div>
+
+    <!-- Gênero -->
+    <div class="form-group">
+      <label>Gênero *</label>
+      <select
+        [(ngModel)]="doador.genero"
+        name="genero"
+        required
+        #genero="ngModel"
+        [class.is-invalid]="genero.invalid && genero.touched"
+      >
+        <option value="" disabled selected>Selecione</option>
+        <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
+      </select>
+      <div *ngIf="genero.invalid && genero.touched" class="error-msg">Gênero é obrigatório.</div>
+    </div>
+
+    <!-- Interesses -->
+    <div class="form-group full-width">
+      <label>Áreas de interesse</label>
+      <div class="interests-container">
+        <div
+          *ngFor="let interesse of areasInteresse"
+          class="interest-tag"
+          [class.selected]="doador.interesses.includes(interesse)"
+          (click)="toggleInteresse(interesse)"
+        >
+          {{ interesse }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="form-group full-width">
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="newsletter"
+          [(ngModel)]="doador.receberNewsletter"
+          name="newsletter"
+        />
+        <label for="newsletter">Desejo receber newsletter</label>
+      </div>
+    </div>
+
+    <!-- Termos -->
+    <div class="form-group full-width">
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="termos"
+          [(ngModel)]="doador.aceitouTermos"
+          name="termos"
+          required
+          #termos="ngModel"
+          [class.is-invalid]="termos.invalid && termos.touched"
+        />
+        <label for="termos">
+          Li e aceito os <a routerLink="/termos-de-uso">termos de uso</a> e <a routerLink="/policy-privacy">política de privacidade</a> *
+        </label>
+      </div>
+      <div *ngIf="termos.invalid && termos.touched" class="error-msg">
+        Você precisa aceitar os termos.
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="submit-button" [disabled]="!formRef.valid">
+    <i class="bi bi-check-circle"></i> Cadastrar como Doador
+  </button>
+</form>

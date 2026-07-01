@@ -1,0 +1,108 @@
+
+<div class="donor-dashboard">
+
+  <header class="dashboard-header">
+    <div class="header-content">
+     <!-- <app-perfil></app-perfil> -->
+      <p>Continue fazendo a diferença com suas doações</p>
+    </div>
+    <div class="header-actions">
+      <button mat-flat-button color="primary" routerLink="/explorar">
+        <mat-icon>search</mat-icon>
+        Explorar Campanhas
+      </button>
+    </div>
+  </header>
+
+  <!-- Resumo Estatístico -->
+  <section class="stats-section">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <mat-icon>volunteer_activism</mat-icon>
+        <h3>Total Doado</h3>
+        <!-- <p>{{ getTotalDonated() | currency:'BRL':'symbol':'1.2-2' }}</p> -->
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <mat-icon>campaign</mat-icon>
+        <h3>Campanhas Apoiadas</h3>
+        <!-- <p>{{ userDonations.length }}</p> -->
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <mat-icon>verified</mat-icon>
+        <h3>Selos Conquistados</h3>
+        <!-- <p>{{ getBadgeCount() }}</p> -->
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- Abas Principais -->
+  <mat-tab-group [(selectedIndex)]="activeTabIndex" class="main-tabs">
+    <!-- Campanhas em Destaque -->
+    <mat-tab label="Destaques">
+      <section class="campaigns-section">
+        <h2 class="section-title">Campanhas em Destaque</h2>
+        <div class="campaigns-grid">
+          <!-- <app-campaign-card
+            *ngFor="let campaign of featuredCampaigns"
+            [campaign]="campaign"
+            (donate)="openDonationDialog(campaign)">
+          </app-campaign-card> -->
+        </div>
+      </section>
+    </mat-tab>
+
+    <!-- Suas Doações -->
+    <mat-tab label="Suas Doações">
+      <section class="donations-section">
+        <h2 class="section-title">Histórico de Doações</h2>
+
+        <!-- <div *ngIf="userDonations.length === 0" class="empty-state">
+          <mat-icon>volunteer_activism</mat-icon>
+          <h3>Você ainda não fez nenhuma doação</h3>
+          <p>Explore campanhas e faça sua primeira doação</p>
+          <button mat-flat-button color="primary" routerLink="/explore">
+            Explorar Campanhas
+          </button>
+        </div> -->
+
+        <!-- <mat-card *ngFor="let donation of userDonations" class="donation-card">
+          <mat-card-header>
+            <img mat-card-avatar [src]="donation.campaign.image || 'assets/images/default-campaign.jpg'">
+            <mat-card-title>{{ donation.campaign.title }}</mat-card-title>
+            <mat-card-subtitle>{{ donation.date | date:'dd/MM/yyyy' }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="donation-info">
+              <span class="donation-amount">{{ donation.amount | currency:'BRL':'symbol':'1.2-2' }}</span>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="(donation.campaign.raised / donation.campaign.goal) * 100">
+              </mat-progress-bar>
+              <span class="progress-text">
+                {{ (donation.campaign.raised / donation.campaign.goal) * 100 | number:'1.0-0' }}% alcançado
+              </span>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button mat-button color="primary" [routerLink]="['/campaign', donation.campaign._id]">
+              Ver Campanha
+            </button>
+            <button mat-button *ngIf="donation.receiptUrl">
+              <mat-icon>receipt</mat-icon>
+              Recibo
+            </button>
+          </mat-card-actions>
+        </mat-card> -->
+      </section>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
