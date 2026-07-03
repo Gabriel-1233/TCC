@@ -48,7 +48,7 @@ export class Explorar {
   ngOnInit() {
     this.loadCampaigns();
     this.route.queryParams.subscribe(params => {
-      const campanhaId = params['campanha._id'];
+      const campanhaId = params['campanhaId'];
       if (campanhaId) {
         this.openCampaignModalById(campanhaId);
       }
