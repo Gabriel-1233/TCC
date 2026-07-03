@@ -1,27 +1,27 @@
 [
   {
-    "_id": "258e2959-6ed5-488d-bfd1-6b948a5498b7",
-    "titulo": "Salve as onças",
-    "descricao": "salvar onças",
-    "categoria": "animais",
+    "_id": "358ae0b9-470a-48a5-99b8-36d80424aa4d",
+    "titulo": "Salvar Mata-Atlantica",
+    "descricao": "Campanha de arrecadção de recursos, para o salvamento de plantas e animais nativos da mata-atlantica.",
+    "categoria": "meio ambiente",
     "meta": 100000,
-    "arrecadado": 0,
+    "arrecadado": 2030,
     "avaliacaoCount": 0,
     "avaliacaoMedia": 0,
     "status": "ativa",
     "imagem": [
-      "https://tse4.mm.bing.net/th/id/OIP.0VqtRdLnl-zLJgp1yWI0-gHaER?rs=1&pid=ImgDetMain&o=7&rm=3"
+      "https://patrialatina.com.br/a-fome-na-africa-endemica-e-mortal/"
     ],
-    "dataInicio": "2026-07-02T22:26:08.108Z",
-    "dataFim": "2027-03-10T00:00:00.000Z",
+    "dataInicio": "2026-07-03T18:56:13.454Z",
+    "dataFim": "2027-07-31T00:00:00.000Z",
     "local": {
-      "endereco": "138",
+      "endereco": "1A travesa David Veloso n*31",
       "cidade": "Salvador",
       "estado": "Bahia"
     },
     "ong": {
-      "_id": "ea3c6d56-9e88-4f0b-bb09-e2c7deba741b",
-      "nome": "ONG Anônima",
+      "_id": "caf4421d-7096-4136-b174-e3f2aa46ece5",
+      "nome": "welson gabriel",
       "logo": ""
     }
   }

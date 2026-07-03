@@ -93,8 +93,15 @@ export class NewCampaignDialog {
     return;
   }
 
-  const body = this.campaignForm.value;
+const body = {
+  ...this.campaignForm.value,
 
+  ong: {
+    _id: localStorage.getItem('_id'),
+    nome: localStorage.getItem('usuarioNome'),
+    logo: localStorage.getItem('avatarUrl') || ''
+  }
+};
   const operation = this.data?.campaign
     ? this.campaignService.updateCampaign(this.data.campaign._id, body)
     : this.campaignService.createCampaign(body);

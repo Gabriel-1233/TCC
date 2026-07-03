@@ -15,11 +15,22 @@ export class AuthService {
   login(user: { email: string; senha: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, user).pipe(
       tap((res: any) => {
-        if (res && res.user) {
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('user', JSON.stringify(res.user));
-        }
-      })
+  if (res && res.user) {
+
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('user', JSON.stringify(res.user));
+
+    // Dados individuais utilizados em várias telas
+    localStorage.setItem('_id', res.user._id);
+    localStorage.setItem('usuarioNome', res.user.nome);
+    localStorage.setItem('email', res.user.email);
+
+    if (res.user.logo) {
+      localStorage.setItem('avatarUrl', res.user.logo);
+    }
+
+  }
+})
     );
   }
 

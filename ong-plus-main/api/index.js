@@ -25,16 +25,42 @@ function salvarArquivo(nomeArquivo, dados) {
 }
 
 // Carrega os dados salvos
-let usuarios = lerArquivo("usuarios.json");
-let campanhas = lerArquivo("campanhas.json");
-let doacoes = lerArquivo("doacoes.json");
+function getUsuarios() {
+  return lerArquivo("usuarios.json");
+}
+
+function getCampanhas() {
+  return lerArquivo("campanhas.json");
+}
+
+function getDoacoes() {
+  return lerArquivo("doacoes.json");
+}
+
+function getAtividades() {
+  return lerArquivo("atividades.json");
+}
+
+function addAtividade(texto) {
+  const atividades = getAtividades();
+
+  atividades.unshift({
+    _id: uuidv4(),
+    texto,
+    data: new Date()
+  });
+
+  salvarArquivo("atividades.json", atividades);
+}
 
 // ========================
 // ROTAS DE AUTENTICAÇÃO
 // ========================
 app.post("/register", (req, res) => {
+
   const { email } = req.body;
 
+  const usuarios = getUsuarios();
   if (usuarios.find(u => u.email === email)) {
     return res.status(409).json({ message: "Usuário já existe" });
   }
@@ -53,10 +79,16 @@ app.post("/register", (req, res) => {
 
 app.post("/login", (req, res) => {
   const { email, senha } = req.body;
-  const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+
+  const usuarios = getUsuarios();
+  const usuario = usuarios.find(
+    u => u.email === email && u.senha === senha
+  );
+
   if (!usuario) {
     return res.status(401).json({ message: "Credenciais inválidas" });
   }
+
   res.status(200).json({ user: usuario, token: "fake-token" });
 });
 
@@ -67,15 +99,27 @@ app.post("/login", (req, res) => {
 // ROTAS DE USUÁRIOS
 // ========================
 app.get("/usuarios/:id", (req, res) => {
-  const usuario = usuarios.find(u => u._id === req.params.id);
+
+  const usuarios = getUsuarios();
+const campanhas = getCampanhas();
+  const usuario = usuarios.find(
+    u => u._id === req.params.id
+  );
+
   if (!usuario) {
     return res.status(404).json({ message: "Usuário não encontrado" });
   }
+
   res.json(usuario);
+});
+
+app.get("/api/atividades", (req, res) => {
+  res.json(getAtividades());
 });
 
 app.put("/usuarios/:id", (req, res) => {
   const index = usuarios.findIndex(u => u._id === req.params.id);
+  const campanhas = getCampanhas();
   if (index === -1) {
     return res.status(404).json({ message: "Usuário não encontrado" });
   }
@@ -89,12 +133,21 @@ app.put("/usuarios/:id", (req, res) => {
 // ROTAS DE CAMPANHAS
 // ========================
 app.get("/api/campanhas", (req, res) => {
-  res.json(campanhas);
+  res.json(getCampanhas());
 });
 
 app.get("/api/campanhas/:id", (req, res) => {
-  const campanha = campanhas.find(c => c._id === req.params.id);
-  if (!campanha) return res.status(404).json({ message: "Campanha não encontrada" });
+
+  const campanhas = getCampanhas();
+
+  const campanha = campanhas.find(
+    c => c._id === req.params.id
+  );
+
+  if (!campanha) {
+    return res.status(404).json({ message: "Campanha não encontrada" });
+  }
+
   res.json(campanha);
 });
 
@@ -146,61 +199,141 @@ app.get("/api/donations", (req, res) => {
   res.json(doacoes);
 });
 
+app.get("/api/donations/monthly", (req, res) => {
+
+  const doacoes = getDoacoes();
+const campanhas = getCampanhas();
+  const meses = {};
+
+  doacoes.forEach(d => {
+    const data = new Date(d.data);
+    const mes = data.getMonth(); // 0-11
+
+    meses[mes] = (meses[mes] || 0) + Number(d.valor);
+  });
+
+  const resultado = Object.keys(meses).map(m => ({
+    month: m,
+    value: meses[m]
+  }));
+
+  res.json(resultado);
+});
+
 app.get("/api/dashboard-ong/:email", (req, res) => {
 
-    const email = req.params.email;
+  const email = req.params.email;
+const campanhas = getCampanhas();
+  const usuarios = getUsuarios();
 
-    const usuario = usuarios.find(u => u.email === email);
+  const usuario = usuarios.find(
+    u => u.email === email
+  );
 
-    if (!usuario) {
-        return res.status(404).json({
-            message: "ONG não encontrada"
-        });
-    }
-
-    const campanhasDaOng = campanhas.filter(
-        c => c.ong._id === usuario._id
-    );
-
-    const campanhasAtivas = campanhasDaOng.length;
-
-    const totalDoacoes = campanhasDaOng.reduce(
-        (soma, campanha) => soma + campanha.arrecadado,
-        0
-    );
-
-    res.json({
-        campaigns: campanhasAtivas,
-        donations: totalDoacoes,
-        volunteers: 0,
-        mission: "Impactando vidas",
-        monthlyGoal: 75
+  if (!usuario) {
+    return res.status(404).json({
+      message: "ONG não encontrada"
     });
+  }
+
+
+  const campanhasDaOng = campanhas.filter(
+    c => c.ong && c.ong._id === usuario._id
+  );
+
+  const campanhasAtivas = campanhasDaOng.length;
+
+  const totalDoacoes = campanhasDaOng.reduce(
+    (soma, campanha) => soma + campanha.arrecadado,
+    0
+  );
+
+  res.json({
+    campaigns: campanhasAtivas,
+    donations: totalDoacoes,
+    volunteers: 0,
+    mission: "Impactando vidas",
+    monthlyGoal: 75
+  });
+
+});
+
+app.get("/api/dashboard-donors/:email", (req, res) => {
+
+  const doacoes = getDoacoes();
+
+  const usuariosUnicos = new Set(
+    doacoes
+      .map(d => d.donorId) // 🔥 AGORA SEMPRE EXISTE
+      .filter(Boolean)
+  );
+
+  res.json({
+    donors: usuariosUnicos.size
+  });
 
 });
 
 app.post("/api/donations", (req, res) => {
+  
+  console.log("========== NOVA DOAÇÃO ==========");
+  console.log(req.body);
+
+  const donorId =
+  req.body.usuarioId ||
+  req.body.email ||
+  req.body.donorId ||
+  uuidv4();
 
   const novaDoacao = {
-    _id: uuidv4(),
-    ...req.body,
-    data: new Date()
-  };
+  _id: uuidv4(),
 
-  doacoes.push(novaDoacao);
+  usuarioId: req.body.usuarioId || null,
+  email: req.body.email || null,
 
-  salvarArquivo("doacoes.json", doacoes);
+  // 🔥 ISSO É O MAIS IMPORTANTE
+  donorId: req.body.donorId || req.body.sessionId || uuidv4(),
 
-  // procura campanha
-  const campanha = campanhas.find(
-    c => c._id === novaDoacao.campanha._id
-  );
+  campanha: req.body.campanha,
+  valor: Number(req.body.valor),
 
-  if (campanha) {
-    campanha.arrecadado += Number(novaDoacao.valor);
+  anonima: req.body.anonima || false,
 
-    salvarArquivo("campanhas.json", campanhas);
-  }
+  data: new Date()
+};
+
+  let doacoes = getDoacoes();
+doacoes.push(novaDoacao);
+salvarArquivo("doacoes.json", doacoes);
+
+let campanhas = getCampanhas();
+const campanhaId =
+  typeof novaDoacao.campanha === "string"
+    ? novaDoacao.campanha
+    : novaDoacao.campanha._id;
+
+const campanha = campanhas.find(c => c._id === campanhaId);
+
+console.log("Campanha encontrada:");
+console.log(campanha);
+
+if (campanha) {
+
+  console.log("Tipo do arrecadado:", typeof campanha.arrecadado);
+  console.log("Valor antes:", campanha.arrecadado);
+
+  campanha.arrecadado =
+  Number(campanha.arrecadado || 0) + Number(novaDoacao.valor || 0);
+
+  console.log("Valor depois:", campanha.arrecadado);
+
+  salvarArquivo("campanhas.json", campanhas);
+
+} else {
+
+  console.log("❌ Campanha NÃO encontrada");
+
+}
 
   res.status(201).json(novaDoacao);
 

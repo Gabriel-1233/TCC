@@ -100,16 +100,12 @@
     
     <div class="premium-causes-grid">
 
-      <div *ngFor="let cause of filteredCauses">
-
-        {{ cause.imagem | json }}
-
       <app-campaign-card
+      *ngFor="let cause of filteredCauses"
       [campaign]="cause"
       (donate)="openDonationModal($event)">
       </app-campaign-card>
 
-      </div>
     </div>
 
     <div *ngIf="filteredCauses.length === 0" class="no-results">
