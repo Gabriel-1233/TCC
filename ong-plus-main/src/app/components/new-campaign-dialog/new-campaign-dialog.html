@@ -82,9 +82,15 @@
     </div>
 
     <div class="mb-3">
-      <label for="imagem" class="form-label">Imagem da Campanha</label>
-      <input type="file" class="form-control" id="imagem" (change)="onFileSelected($event)" accept="image/*">
-    </div>
+  <label for="imagem" class="form-label">Imagem da Campanha (URL)</label>
+
+  <input
+    type="text"
+    class="form-control"
+    id="imagem"
+    formControlName="imagem"
+    placeholder="Ex.: https://meusite.com/imagem.jpg">
+</div>
   </form>
 </div>
 

@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DonationService {
-  private apiUrl = 'http://localhost:3000/api/donations';
+  private apiUrl = 'https://bug-free-xylophone-69rxgj47qvrrhqpp-3000.app.github.dev/api/donations';
 
   constructor(private http: HttpClient) {}
 
   createDonation(donation: Donation): Observable<Donation> {
-    return this.http.post<Donation>(`${this.apiUrl}`, donation);
-  }
+  return this.http.post<Donation>(this.apiUrl, donation);
+}
 }

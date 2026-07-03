@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class OngDashboardService {
-  private baseUrl = 'http://localhost:3000/api';
+  private baseUrl = 'https://bug-free-xylophone-69rxgj47qvrrhqpp-3000.app.github.dev/api';
 
   constructor(private http: HttpClient) {}
 

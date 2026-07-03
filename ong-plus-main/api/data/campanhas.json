@@ -1,136 +1,28 @@
 [
   {
-    "_id": "1",
-    "titulo": "Doe sangue, salve vidas",
-    "descricao": "Campanha de doação de sangue para hospitais da região.",
-    "ong": {
-      "_id": "ong-1",
-      "nome": "Vida+",
-      "logo": "http://localhost:3000/imagens/sangue.jpg"
-    },
-    "categoria": "sangue",
-    "meta": 10000,
-    "arrecadado": 6500,
-    "dataInicio": "2023-01-01T00:00:00.000Z",
-    "dataFim": "2023-12-31T00:00:00.000Z",
+    "_id": "258e2959-6ed5-488d-bfd1-6b948a5498b7",
+    "titulo": "Salve as onças",
+    "descricao": "salvar onças",
+    "categoria": "animais",
+    "meta": 100000,
+    "arrecadado": 0,
+    "avaliacaoCount": 0,
+    "avaliacaoMedia": 0,
     "status": "ativa",
     "imagem": [
-      "http://localhost:3000/imagens/sangue.jpg"
+      "https://tse4.mm.bing.net/th/id/OIP.0VqtRdLnl-zLJgp1yWI0-gHaER?rs=1&pid=ImgDetMain&o=7&rm=3"
     ],
+    "dataInicio": "2026-07-02T22:26:08.108Z",
+    "dataFim": "2027-03-10T00:00:00.000Z",
     "local": {
-      "endereco": "Rua das Clínicas, 123",
-      "cidade": "São Paulo",
-      "estado": "SP"
+      "endereco": "138",
+      "cidade": "Salvador",
+      "estado": "Bahia"
+    },
+    "ong": {
+      "_id": "ea3c6d56-9e88-4f0b-bb09-e2c7deba741b",
+      "nome": "ONG Anônima",
+      "logo": ""
     }
-  },
-  {
-    "_id": "2",
-    "titulo": "Educação para Todos",
-    "descricao": "Ajude a fornecer material escolar para crianças carentes.",
-    "ong": {
-      "_id": "ong-2",
-      "nome": "Educar ONG",
-      "logo": "http://localhost:3000/imagens/educacao.jpg"
-    },
-    "categoria": "educação",
-    "imagem": [
-      "http://localhost:3000/imagens/educacao.jpg"
-    ],
-    "meta": 100000,
-    "dataFim": "",
-    "local": {
-      "endereco": "",
-      "cidade": "",
-      "estado": ""
-    },
-    "fotos": ""
-  },
-  {
-    "_id": "3",
-    "titulo": "Reflorestamento do Cerrado",
-    "descricao": "Participe do plantio de árvores no cerrado.",
-    "ong": {
-      "_id": "ong-3",
-      "nome": "Verde Novo",
-      "logo": "http://localhost:3000/imagens/cerrado.jpg"
-    },
-    "categoria": "meio ambiente",
-    "imagem": [
-      "http://localhost:3000/imagens/cerrado.jpg"
-    ],
-    "meta": 10000,
-    "dataFim": "",
-    "local": {
-      "endereco": "",
-      "cidade": "",
-      "estado": ""
-    },
-    "fotos": ""
-  },
-  {
-    "_id": "4",
-    "titulo": "Acolhimento animal",
-    "descricao": "Ajude na vacinação e resgate de animais de rua.",
-    "ong": {
-      "_id": "ong-4",
-      "nome": "Pet Feliz",
-      "logo": "http://localhost:3000/imagens/rescue-pets.jpg"
-    },
-    "categoria": "animais",
-    "imagem": [
-      "http://localhost:3000/imagens/rescue-pets.jpg"
-    ],
-    "meta": 100000,
-    "dataFim": "",
-    "local": {
-      "endereco": "",
-      "cidade": "",
-      "estado": ""
-    },
-    "fotos": ""
-  },
-  {
-    "_id": "5",
-    "titulo": "Tecnologia para inclusão",
-    "descricao": "Leve cursos de informática para jovens em vulnerabilidade.",
-    "ong": {
-      "_id": "ong-5",
-      "nome": "IncluirTech",
-      "logo": "http://localhost:3000/imagens/inclusao.jpg"
-    },
-    "categoria": "tecnologia",
-    "imagem": [
-      "http://localhost:3000/imagens/inclusao.jpg"
-    ],
-    "meta": 500,
-    "dataFim": "",
-    "local": {
-      "endereco": "",
-      "cidade": "",
-      "estado": ""
-    },
-    "fotos": ""
-  },
-  {
-    "_id": "6",
-    "titulo": "Apoio à saúde mental",
-    "descricao": "Grupo de apoio gratuito com psicólogos voluntários.",
-    "ong": {
-      "_id": "ong-6",
-      "nome": "Mente em Paz",
-      "logo": "http://localhost:3000/imagens/saude-mental.jpg"
-    },
-    "categoria": "saúde",
-    "imagem": [
-      "http://localhost:3000/imagens/saude-mental.jpg"
-    ],
-    "meta": 750,
-    "dataFim": "",
-    "local": {
-      "endereco": "",
-      "cidade": "",
-      "estado": ""
-    },
-    "fotos": ""
   }
 ]

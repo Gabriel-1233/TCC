@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://bug-free-xylophone-69rxgj47qvrrhqpp-3000.app.github.dev';
 
   constructor(private http: HttpClient, private router: Router) {}
 

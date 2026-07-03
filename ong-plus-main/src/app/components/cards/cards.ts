@@ -53,10 +53,39 @@ export class CampanhasCards {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   }
 
+getCategoryColor(category: string): string {
+  const colors: Record<string, string> = {
+    'saúde': '#ff6b6b',
+    'educação': '#4dabf7',
+    'meio ambiente': '#51cf66',
+    'tecnologia': '#845ef7',
+    'animais': '#f59f00',
+    'alimentos': '#fd7e14',
+    'roupas': '#e64980',
+    'dinheiro': '#20c997',
+    'sangue': '#c92a2a',
+    'brinquedos': '#fcc419',
+    'outros': '#868e96'
+  };
+
+  return colors[category] || '#0d6efd';
+}
+
   getImageUrl(): string {
-    if (Array.isArray(this.campaign.imagem)) {
-      return this.campaign.imagem[0] || 'assets/images/default-campaign.jpg';
-    }
-    return this.campaign.imagem || 'assets/images/default-campaign.jpg';
+
+  console.log("Campanha completa:", this.campaign);
+  console.log("Campo imagem:", this.campaign.imagem);
+
+  if (Array.isArray(this.campaign.imagem)) {
+    console.log("Primeira imagem:", this.campaign.imagem[0]);
+    return this.campaign.imagem[0] || 'assets/images/default-campaign.jpg';
   }
+
+  console.log("Imagem string:", this.campaign.imagem);
+  return this.campaign.imagem || 'assets/images/default-campaign.jpg';
+}
+
+  ngOnInit() {
+  console.log("CARD", this.campaign);
+}
 }

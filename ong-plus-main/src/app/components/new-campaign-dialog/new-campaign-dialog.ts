@@ -51,7 +51,7 @@ export class NewCampaignDialog {
         cidade: [''],
         estado: ['']
       }),
-      fotos: ['']
+      imagem: ['']
     });
 
     if (data?.campaign) {
@@ -109,15 +109,6 @@ export class NewCampaignDialog {
     }
   });
 }
-
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files?.length) {
-      this.campaignForm.patchValue({ fotos: input.files[0] });
-    }
-  }
-
   cancel(): void {
     this.dialogRef.close();
   }

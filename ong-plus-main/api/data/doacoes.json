@@ -1,1 +1,41 @@
-[]
+[
+  {
+    "_id": "031b198c-bf3a-4274-b84a-c054ca16113b",
+    "valor": 200,
+    "mensagem": "",
+    "anonima": true,
+    "campanha": {
+      "_id": "258e2959-6ed5-488d-bfd1-6b948a5498b7",
+      "titulo": "Salve as onças",
+      "imagem": "https://tse4.mm.bing.net/th/id/OIP.0VqtRdLnl-zLJgp1yWI0-gHaER?rs=1&pid=ImgDetMain&o=7&rm=3"
+    },
+    "dataDoacao": "2026-07-02T22:28:25.125Z",
+    "data": "2026-07-02T22:28:26.994Z"
+  },
+  {
+    "_id": "17d1d0bb-b433-4cd7-affd-d5e73e587866",
+    "valor": 200,
+    "mensagem": "",
+    "anonima": true,
+    "campanha": {
+      "_id": "258e2959-6ed5-488d-bfd1-6b948a5498b7",
+      "titulo": "Salve as onças",
+      "imagem": "https://tse4.mm.bing.net/th/id/OIP.0VqtRdLnl-zLJgp1yWI0-gHaER?rs=1&pid=ImgDetMain&o=7&rm=3"
+    },
+    "dataDoacao": "2026-07-02T22:32:26.500Z",
+    "data": "2026-07-02T22:32:28.836Z"
+  },
+  {
+    "_id": "b3ddd652-2d9f-43be-8fcd-0c99b5cb7cb4",
+    "valor": 200,
+    "mensagem": "",
+    "anonima": true,
+    "campanha": {
+      "_id": "258e2959-6ed5-488d-bfd1-6b948a5498b7",
+      "titulo": "Salve as onças",
+      "imagem": "https://tse4.mm.bing.net/th/id/OIP.0VqtRdLnl-zLJgp1yWI0-gHaER?rs=1&pid=ImgDetMain&o=7&rm=3"
+    },
+    "dataDoacao": "2026-07-02T22:42:43.773Z",
+    "data": "2026-07-02T22:42:46.098Z"
+  }
+]

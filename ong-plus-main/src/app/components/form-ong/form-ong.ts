@@ -51,7 +51,7 @@ export class FormOng {
 
     if (!this.cnpjValido || !this.senhaValida) return;
 
-    fetch('http://localhost:3000/register', {
+    fetch('https://bug-free-xylophone-69rxgj47qvrrhqpp-3000.app.github.dev/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...this.ong, tipo: 'ong' })

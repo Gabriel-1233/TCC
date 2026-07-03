@@ -109,7 +109,7 @@ app.post("/api/campanhas", (req, res) => {
     avaliacaoCount: 0,
     avaliacaoMedia: 0,
     status: "ativa",
-    imagem: [],
+    imagem: req.body.imagem ? [req.body.imagem] : [],
     dataInicio: new Date(),
     dataFim: new Date(req.body.dataFim),
     local: req.body.local,
@@ -144,6 +144,66 @@ app.delete("/api/campanhas/:id", (req, res) => {
 // ========================
 app.get("/api/donations", (req, res) => {
   res.json(doacoes);
+});
+
+app.get("/api/dashboard-ong/:email", (req, res) => {
+
+    const email = req.params.email;
+
+    const usuario = usuarios.find(u => u.email === email);
+
+    if (!usuario) {
+        return res.status(404).json({
+            message: "ONG não encontrada"
+        });
+    }
+
+    const campanhasDaOng = campanhas.filter(
+        c => c.ong._id === usuario._id
+    );
+
+    const campanhasAtivas = campanhasDaOng.length;
+
+    const totalDoacoes = campanhasDaOng.reduce(
+        (soma, campanha) => soma + campanha.arrecadado,
+        0
+    );
+
+    res.json({
+        campaigns: campanhasAtivas,
+        donations: totalDoacoes,
+        volunteers: 0,
+        mission: "Impactando vidas",
+        monthlyGoal: 75
+    });
+
+});
+
+app.post("/api/donations", (req, res) => {
+
+  const novaDoacao = {
+    _id: uuidv4(),
+    ...req.body,
+    data: new Date()
+  };
+
+  doacoes.push(novaDoacao);
+
+  salvarArquivo("doacoes.json", doacoes);
+
+  // procura campanha
+  const campanha = campanhas.find(
+    c => c._id === novaDoacao.campanha._id
+  );
+
+  if (campanha) {
+    campanha.arrecadado += Number(novaDoacao.valor);
+
+    salvarArquivo("campanhas.json", campanhas);
+  }
+
+  res.status(201).json(novaDoacao);
+
 });
 
 // ========================

@@ -1,11 +1,19 @@
+{{ campaign | json }}
+
 <div class="premium-card" (click)="openPremiumModal()">
   <div class="card-image-container">
-    <img [src]="getImageUrl()" [alt]="campaign.titulo" class="card-image" />
-    <div class="image-overlay"></div>
+  <img
+    [src]="getImageUrl()"
+    [alt]="campaign.titulo"
+    class="card-image">
   </div>
 
   <div class="card-content">
-    <div class="card-category">{{ campaign.categoria | titlecase }}</div>
+    <div
+  class="card-category"
+  [style.background]="getCategoryColor(campaign.categoria)">
+  {{ campaign.categoria | titlecase }}
+</div>
     <h3 class="card-title">{{ campaign.titulo }}</h3>
     <p class="card-description">{{ truncate(campaign.descricao, 100) }}</p>
 
@@ -16,6 +24,17 @@
         <span>{{ getProgressPercentage() | number:'1.0-0' }}%</span>
       </div>
     </div>
+
+    <div class="goal-info">
+
+  <small>
+
+    Meta:
+    <strong>{{ campaign.meta | currency:'BRL':'symbol':'1.2-2' }}</strong>
+
+  </small>
+
+  </div>
 
     <div class="card-meta">
       <span class="meta-item">

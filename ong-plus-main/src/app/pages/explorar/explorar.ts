@@ -65,13 +65,20 @@ export class Explorar {
   }
 
   loadCampaigns(): void {
-    this.campaignService.getCampaigns().subscribe({
-      next: (data) => {
-        this.featuredCampaigns = data;
-      },
-      error: (err) => console.error('Erro ao buscar campanhas:', err)
-    });
-  }
+  this.campaignService.getCampaigns().subscribe({
+    next: (data) => {
+      console.log('=== CAMPANHAS RECEBIDAS ===');
+      console.log(data);
+
+      this.featuredCampaigns = data;
+
+      console.log('Quantidade:', this.featuredCampaigns.length);
+    },
+    error: (err) => {
+      console.error(err);
+    }
+  });
+}
 
   popularTags = ['saúde', 'educação', 'meio ambiente', 'tecnologia', 'animais', 'outros'];
 

@@ -7,7 +7,7 @@ import { User, OngUser } from '../models/user.model';
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl = 'http://localhost:3000'; // corrigido
+  private apiUrl = 'https://bug-free-xylophone-69rxgj47qvrrhqpp-3000.app.github.dev'; // corrigido
 
   constructor(private http: HttpClient) {}
 

@@ -7,7 +7,7 @@ export interface ModelCampanha {
     nome: string;
     logo?: string;
   };
-  categoria: 'alimentos' | 'roupas' | 'dinheiro' | 'sangue' | 'brinquedos' | 'outros';
+  categoria: string;
   meta: number;
   arrecadado: number;
   dataInicio: Date;

@@ -8,7 +8,7 @@ import { ModelCampanha } from '../models/campanha.models';
 })
 export class CampaignService {
   // ✅ Substitua pela URL da API publicada no Vercel (sem barra no final)
-  private readonly baseUrl = 'http://localhost:3000/api/campanhas';
+  private readonly baseUrl = 'https://bug-free-xylophone-69rxgj47qvrrhqpp-3000.app.github.dev/api/campanhas';
 
   constructor(private http: HttpClient) {}
 
