@@ -1,27 +1,53 @@
 [
   {
-    "_id": "358ae0b9-470a-48a5-99b8-36d80424aa4d",
-    "titulo": "Salvar Mata-Atlantica",
-    "descricao": "Campanha de arrecadção de recursos, para o salvamento de plantas e animais nativos da mata-atlantica.",
-    "categoria": "meio ambiente",
-    "meta": 100000,
-    "arrecadado": 2030,
+    "_id": "cb5ceb6b-16ab-4f37-87f4-e71eba8e58f2",
+    "titulo": "teste3",
+    "descricao": "testes3",
+    "categoria": "saúde",
+    "meta": 1000,
+    "arrecadado": 1140,
     "avaliacaoCount": 0,
     "avaliacaoMedia": 0,
     "status": "ativa",
     "imagem": [
-      "https://patrialatina.com.br/a-fome-na-africa-endemica-e-mortal/"
+      "https://tse4.mm.bing.net/th/id/OIP.0VqtRdLnl-zLJgp1yWI0-gHaER?rs=1&pid=ImgDetMain&o=7&rm=3"
     ],
-    "dataInicio": "2026-07-03T18:56:13.454Z",
-    "dataFim": "2027-07-31T00:00:00.000Z",
+    "dataInicio": "2026-07-07T02:17:12.173Z",
+    "dataFim": "2026-07-16T00:00:00.000Z",
     "local": {
-      "endereco": "1A travesa David Veloso n*31",
+      "endereco": "138",
       "cidade": "Salvador",
       "estado": "Bahia"
     },
     "ong": {
-      "_id": "caf4421d-7096-4136-b174-e3f2aa46ece5",
-      "nome": "welson gabriel",
+      "_id": "5d7ce5dd-80a4-4879-99a4-96ecb45f2429",
+      "nome": "Boa vida",
+      "logo": ""
+    }
+  },
+  {
+    "_id": "24de7ca3-d8b2-443f-8f09-0e59c7a71949",
+    "titulo": "teste4",
+    "descricao": "teste4",
+    "categoria": "roupas",
+    "meta": 1000,
+    "arrecadado": 550,
+    "avaliacaoCount": 0,
+    "avaliacaoMedia": 0,
+    "status": "ativa",
+    "imagem": [
+      "https://tse4.mm.bing.net/th/id/OIP.0VqtRdLnl-zLJgp1yWI0-gHaER?rs=1&pid=ImgDetMain&o=7&rm=3"
+    ],
+    "dataInicio": "2026-07-07T05:02:42.512Z",
+    "dataFim": "2026-07-31T00:00:00.000Z",
+    "local": {
+      "endereco": "138",
+      "cidade": "Salvador",
+      "estado": "Bahia"
+    },
+    "ong": {
+      "_id": "5d7ce5dd-80a4-4879-99a4-96ecb45f2429",
+      "nome": "Boa vida",
       "logo": ""
     }
   }

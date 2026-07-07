@@ -41,12 +41,13 @@ function getAtividades() {
   return lerArquivo("atividades.json");
 }
 
-function addAtividade(texto) {
+function addAtividade(atividade) {
+
   const atividades = getAtividades();
 
   atividades.unshift({
     _id: uuidv4(),
-    texto,
+    ...atividade,
     data: new Date()
   });
 
@@ -101,7 +102,6 @@ app.post("/login", (req, res) => {
 app.get("/usuarios/:id", (req, res) => {
 
   const usuarios = getUsuarios();
-const campanhas = getCampanhas();
   const usuario = usuarios.find(
     u => u._id === req.params.id
   );
@@ -118,8 +118,12 @@ app.get("/api/atividades", (req, res) => {
 });
 
 app.put("/usuarios/:id", (req, res) => {
-  const index = usuarios.findIndex(u => u._id === req.params.id);
-  const campanhas = getCampanhas();
+  const usuarios = getUsuarios();
+
+const index = usuarios.findIndex(
+  u => u._id === req.params.id
+);
+  
   if (index === -1) {
     return res.status(404).json({ message: "Usuário não encontrado" });
   }
@@ -152,79 +156,108 @@ app.get("/api/campanhas/:id", (req, res) => {
 });
 
 app.post("/api/campanhas", (req, res) => {
-  const novaCampanha = {
-    _id: uuidv4(),
-    titulo: req.body.titulo,
-    descricao: req.body.descricao,
-    categoria: req.body.categoria,
-    meta: parseFloat(req.body.meta),
-    arrecadado: 0,
-    avaliacaoCount: 0,
-    avaliacaoMedia: 0,
-    status: "ativa",
-    imagem: req.body.imagem ? [req.body.imagem] : [],
-    dataInicio: new Date(),
-    dataFim: new Date(req.body.dataFim),
-    local: req.body.local,
-    ong: {
-      _id: req.body.ong?._id || uuidv4(),
-      nome: req.body.ong?.nome || 'ONG Anônima',
-      logo: req.body.ong?.logo || ''
-    }
-  };
 
-  campanhas.push(novaCampanha);
-  salvarArquivo("campanhas.json", campanhas);
-  res.status(201).json(novaCampanha);
+  const campanhas = getCampanhas();
+
+  try {
+
+    console.log(req.body);
+
+    const campanhas = getCampanhas();
+    
+
+    const novaCampanha = {
+      _id: uuidv4(),
+      titulo: req.body.titulo,
+      descricao: req.body.descricao,
+      categoria: req.body.categoria,
+      meta: parseFloat(req.body.meta),
+      arrecadado: 0,
+      avaliacaoCount: 0,
+      avaliacaoMedia: 0,
+      status: "ativa",
+      imagem: req.body.imagem ? [req.body.imagem] : [],
+      dataInicio: new Date(),
+      dataFim: new Date(req.body.dataFim),
+      local: req.body.local,
+      ong: {
+        _id: req.body.ong?._id || uuidv4(),
+        nome: req.body.ong?.nome || "ONG Anônima",
+        logo: req.body.ong?.logo || ""
+      }
+    };
+
+    campanhas.push(novaCampanha);
+
+    salvarArquivo("campanhas.json", campanhas);
+
+    res.status(201).json(novaCampanha);
+
+  } catch(err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+
 });
 
 app.put("/api/campanhas/:id", (req, res) => {
-  const index = campanhas.findIndex(c => c._id === req.params.id);
-  if (index === -1) return res.status(404).json({ message: "Campanha não encontrada" });
-  campanhas[index] = { ...campanhas[index], ...req.body };
-  salvarArquivo("campanhas.json", campanhas);
-  res.json(campanhas[index]);
-});
 
-app.delete("/api/campanhas/:id", (req, res) => {
-  campanhas = campanhas.filter(c => c._id !== req.params.id);
+  const campanhas = getCampanhas();
+
+  const index = campanhas.findIndex(
+    c => c._id === req.params.id
+  );
+
+  if (index === -1) {
+    return res.status(404).json({
+      message: "Campanha não encontrada"
+    });
+  }
+
+  campanhas[index] = {
+    ...campanhas[index],
+    ...req.body
+  };
+
   salvarArquivo("campanhas.json", campanhas);
+
+  res.json(campanhas[index]);
+
+});
+app.delete("/api/campanhas/:id", (req, res) => {
+
+  let campanhas = getCampanhas();
+
+  campanhas = campanhas.filter(
+    c => c._id !== req.params.id
+  );
+
+  salvarArquivo("campanhas.json", campanhas);
+
   res.status(204).send();
+
 });
 
 // ========================
 // ROTAS DE DOAÇÕES (futuro)
 // ========================
-app.get("/api/donations", (req, res) => {
-  res.json(doacoes);
+app.get("/api/donations", (req,res)=>{
+    res.json(getDoacoes());
 });
 
-app.get("/api/donations/monthly", (req, res) => {
-
-  const doacoes = getDoacoes();
-const campanhas = getCampanhas();
-  const meses = {};
-
-  doacoes.forEach(d => {
-    const data = new Date(d.data);
-    const mes = data.getMonth(); // 0-11
-
-    meses[mes] = (meses[mes] || 0) + Number(d.valor);
-  });
-
-  const resultado = Object.keys(meses).map(m => ({
-    month: m,
-    value: meses[m]
-  }));
-
-  res.json(resultado);
-});
-
-app.get("/api/dashboard-ong/:email", (req, res) => {
+app.get("/api/donations/monthly/:email", (req, res) => {
 
   const email = req.params.email;
-const campanhas = getCampanhas();
+
   const usuarios = getUsuarios();
+  const campanhas = getCampanhas();
+  const doacoes = getDoacoes();
+
+  console.log("================================");
+console.log("Email recebido:", email);
+console.log("Usuários cadastrados:");
+console.log(usuarios);
+console.log("================================");
 
   const usuario = usuarios.find(
     u => u.email === email
@@ -236,27 +269,167 @@ const campanhas = getCampanhas();
     });
   }
 
+  // campanhas da ONG
+  const idsCampanhas = campanhas
+    .filter(c => c.ong && c.ong._id === usuario._id)
+    .map(c => c._id);
 
+  const meses = [
+    0,0,0,0,0,0,0,0,0,0,0,0
+  ];
+
+  doacoes.forEach(d => {
+
+    const campanhaId =
+      typeof d.campanha === "string"
+        ? d.campanha
+        : d.campanha._id;
+
+    if (!idsCampanhas.includes(campanhaId))
+      return;
+
+    const data = new Date(d.data);
+
+    meses[data.getMonth()] += Number(d.valor);
+
+  });
+
+  res.json(meses);
+
+});
+
+app.get("/api/dashboard-ong/:email", (req, res) => {
+
+  const email = req.params.email;
+
+  const usuarios = getUsuarios();
+  const campanhas = getCampanhas();
+  const doacoes = getDoacoes();
+
+  // procura a ONG
+  const usuario = usuarios.find(
+    u => u.email === email
+  );
+
+  if (!usuario) {
+    return res.status(404).json({
+      message: "ONG não encontrada"
+    });
+  }
+
+  // campanhas da ONG
   const campanhasDaOng = campanhas.filter(
     c => c.ong && c.ong._id === usuario._id
   );
 
   const campanhasAtivas = campanhasDaOng.length;
 
+  // total arrecadado
   const totalDoacoes = campanhasDaOng.reduce(
-    (soma, campanha) => soma + campanha.arrecadado,
+    (soma, campanha) => soma + Number(campanha.arrecadado || 0),
     0
   );
 
+  // ids das campanhas
+  const idsCampanhas = campanhasDaOng.map(c => c._id);
+
+  // somente doações dessas campanhas
+  const doacoesDaOng = doacoes.filter(d => {
+
+    const campanhaId =
+      typeof d.campanha === "string"
+        ? d.campanha
+        : d.campanha?._id;
+
+    return idsCampanhas.includes(campanhaId);
+
+  });
+
+  // conta doadores únicos
+  const doadoresUnicos = new Set();
+
+  doacoesDaOng.forEach(d => {
+
+    const id =
+      d.donorId ||
+      d.usuarioId ||
+      d.email;
+
+    if (id) {
+      doadoresUnicos.add(id);
+    }
+
+  });
+
   res.json({
+
     campaigns: campanhasAtivas,
+
     donations: totalDoacoes,
+
+    donors: doadoresUnicos.size,
+
     volunteers: 0,
+
     mission: "Impactando vidas",
+
     monthlyGoal: 75
+
   });
 
 });
+
+app.get("/api/dashboard-ong/:email/monthly", (req, res) => {
+
+  const email = req.params.email;
+
+  const usuarios = getUsuarios();
+  const campanhas = getCampanhas();
+  const doacoes = getDoacoes();
+
+  const usuario = usuarios.find(
+    u => u.email === email
+  );
+
+  if (!usuario) {
+    return res.status(404).json([]);
+  }
+
+  const campanhasIds = campanhas
+    .filter(c => c.ong._id === usuario._id)
+    .map(c => c._id);
+
+  const meses = {};
+
+  doacoes.forEach(d => {
+
+    const campanhaId =
+      typeof d.campanha === "string"
+        ? d.campanha
+        : d.campanha._id;
+
+    if (!campanhasIds.includes(campanhaId))
+      return;
+
+    const data = new Date(d.data);
+
+    const chave =
+      `${data.getMonth()+1}/${data.getFullYear()}`;
+
+    meses[chave] =
+      (meses[chave] || 0) + Number(d.valor);
+
+  });
+
+  const resultado = Object.keys(meses).map(m => ({
+      month: m,
+      value: meses[m]
+  }));
+
+  res.json(resultado);
+
+});
+
 
 app.get("/api/dashboard-donors/:email", (req, res) => {
 
@@ -279,7 +452,7 @@ app.post("/api/donations", (req, res) => {
   console.log("========== NOVA DOAÇÃO ==========");
   console.log(req.body);
 
-  const donorId =
+  const  donorId =
   req.body.usuarioId ||
   req.body.email ||
   req.body.donorId ||
@@ -289,10 +462,11 @@ app.post("/api/donations", (req, res) => {
   _id: uuidv4(),
 
   usuarioId: req.body.usuarioId || null,
-  email: req.body.email || null,
-
-  // 🔥 ISSO É O MAIS IMPORTANTE
   donorId: req.body.donorId || req.body.sessionId || uuidv4(),
+
+  nome: req.body.nome || "Anônimo",
+  fotoPerfil: req.body.fotoPerfil || "",
+  email: req.body.email || null,
 
   campanha: req.body.campanha,
   valor: Number(req.body.valor),
@@ -305,6 +479,18 @@ app.post("/api/donations", (req, res) => {
   let doacoes = getDoacoes();
 doacoes.push(novaDoacao);
 salvarArquivo("doacoes.json", doacoes);
+
+addAtividade({
+  tipo: "doacao",
+  nome: novaDoacao.anonima ? "Anônimo" : novaDoacao.nome,
+  fotoPerfil: novaDoacao.anonima ? "" : novaDoacao.fotoPerfil,
+  valor: novaDoacao.valor,
+  campanha:
+    typeof novaDoacao.campanha === "string"
+      ? ""
+      : novaDoacao.campanha.titulo,
+  data: new Date()
+});
 
 let campanhas = getCampanhas();
 const campanhaId =
@@ -334,6 +520,10 @@ if (campanha) {
   console.log("❌ Campanha NÃO encontrada");
 
 }
+
+  addAtividade(
+  `Nova doação de R$ ${novaDoacao.valor.toFixed(2)} recebida.`
+);
 
   res.status(201).json(novaDoacao);
 

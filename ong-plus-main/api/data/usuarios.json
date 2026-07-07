@@ -104,5 +104,20 @@
     "aceitouTermos": true,
     "tipo": "ong",
     "dataCriacao": "2026-07-03T17:59:16.725Z"
+  },
+  {
+    "_id": "5d7ce5dd-80a4-4879-99a4-96ecb45f2429",
+    "nome": "Boa vida",
+    "cnpj": "11948671000103",
+    "email": "reisnlorena@gmail.com",
+    "senha": "Bahia3940@",
+    "telefone": "71982554952",
+    "areaAtuacao": "Educação",
+    "endereco": "138",
+    "site": "",
+    "descricao": "",
+    "aceitouTermos": true,
+    "tipo": "ong",
+    "dataCriacao": "2026-07-07T01:20:26.619Z"
   }
 ]

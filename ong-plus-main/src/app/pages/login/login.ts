@@ -43,9 +43,15 @@ export class Login {
 
     this.authService.login({ email: this.email, senha: this.senha }).subscribe({
       next: (res) => {
+
+        console.log("LOGIN OK");
+        console.log(res);
+
         const user = res.user;
         const token = res.token;
+        
         localStorage.setItem('userId', user._id);
+        localStorage.setItem('email', user.email);
         localStorage.setItem('token', token || '');
         localStorage.setItem('usuarioNome', user?.nome || 'Usuário');
         localStorage.setItem('avatarUrl', user?.fotoPerfil || '');
