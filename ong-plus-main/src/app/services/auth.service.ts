@@ -21,13 +21,13 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(res.user));
 
     // Dados individuais utilizados em várias telas
-    localStorage.setItem('_id', res.user._id);
+    const usuarioId = localStorage.getItem("_id");
     localStorage.setItem('usuarioNome', res.user.nome);
     localStorage.setItem('email', res.user.email);
 
-    if (res.user.logo) {
-      localStorage.setItem('avatarUrl', res.user.logo);
-    }
+    if (res.user.fotoPerfil) {
+  localStorage.setItem('avatarUrl', res.user.fotoPerfil);
+}
 
   }
 })

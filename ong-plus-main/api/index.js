@@ -452,20 +452,32 @@ app.post("/api/donations", (req, res) => {
   console.log("========== NOVA DOAÇÃO ==========");
   console.log(req.body);
 
+  const usuarios = getUsuarios();
+
+const usuario = usuarios.find(
+  u =>
+    u._id === req.body.usuarioId ||
+    u.email === req.body.email
+);
+
   const  donorId =
   req.body.usuarioId ||
   req.body.email ||
   req.body.donorId ||
   uuidv4();
 
+
+  console.log("BODY RECEBIDO:");
+console.log(req.body);
   const novaDoacao = {
   _id: uuidv4(),
 
   usuarioId: req.body.usuarioId || null,
   donorId: req.body.donorId || req.body.sessionId || uuidv4(),
 
-  nome: req.body.nome || "Anônimo",
-  fotoPerfil: req.body.fotoPerfil || "",
+  nome: req.body.doador?.nome || "Anônimo",
+  fotoPerfil: req.body.doador?.fotoPerfil || "",
+
   email: req.body.email || null,
 
   campanha: req.body.campanha,
@@ -520,10 +532,6 @@ if (campanha) {
   console.log("❌ Campanha NÃO encontrada");
 
 }
-
-  addAtividade(
-  `Nova doação de R$ ${novaDoacao.valor.toFixed(2)} recebida.`
-);
 
   res.status(201).json(novaDoacao);
 
