@@ -29,9 +29,4 @@ export class ProfileService {
   return this.http.put<User | OngUser>(`${this.apiUrl}/usuarios/${userId}`, payload);
 }
 
-  uploadProfilePhoto(userId: string, photo: File): Observable<{url: string}> {
-    const formData = new FormData();
-    formData.append('photo', photo);
-    return this.http.post<{url: string}>(`${this.apiUrl}/usuarios/${userId}/photo`, formData);
-  }
 }

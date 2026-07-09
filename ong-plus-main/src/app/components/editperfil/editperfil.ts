@@ -148,21 +148,9 @@ export class EditProfile implements OnInit {
       updatedUser.areasAtuacao = [...formValue.areasAtuacao];
     }
 
-    if (this.selectedFile) {
-      this.profileService.uploadProfilePhoto(this.data.user._id, this.selectedFile).subscribe({
-        next: (res) => {
-          updatedUser.fotoPerfil = res.url;
-          this.updateUserProfile(updatedUser);
-        },
-        error: (err) => {
-          console.error('Erro ao enviar foto:', err);
-          this.mensagemErro = 'Erro ao enviar a foto. Tente novamente.';
-          this.isSubmitting = false;
-        }
-      });
-    } else {
-      this.updateUserProfile(updatedUser);
-    }
+    // A imagem já foi convertida para Base64 no onFileSelected()
+    this.updateUserProfile(updatedUser);
+    
   }
 
   private updateUserProfile(userData: any): void {
@@ -171,6 +159,21 @@ export class EditProfile implements OnInit {
         this.isSubmitting = false;
         this.mensagemSucesso = 'Perfil atualizado com sucesso!';
         setTimeout(() => {
+          localStorage.setItem(
+  "avatarUrl",
+  updatedUser.fotoPerfil || ""
+);
+
+localStorage.setItem(
+  "usuarioNome",
+  updatedUser.nome
+);
+
+localStorage.setItem(
+  "user",
+  JSON.stringify(updatedUser)
+);
+localStorage.setItem("user", JSON.stringify(updatedUser));
           this.dialogRef.close(updatedUser);
         }, 1500);
       },

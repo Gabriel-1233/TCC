@@ -63,8 +63,8 @@ export class Perfil implements OnInit {
   ngOnInit(): void {
     const routeId = this.route.snapshot.paramMap.get('id');
     const localUserId = localStorage.getItem('userId');
-
     const idToLoad = routeId || localUserId;
+    
     if (!idToLoad) {
       console.error('Nenhum ID de usuário encontrado.');
       this.router.navigate(['/h']);
@@ -172,26 +172,22 @@ export class Perfil implements OnInit {
     }
 
     // Primeiro upload da foto se houver
-    if (this.selectedFile) {
-      this.profileService.uploadProfilePhoto(this.user._id, this.selectedFile).subscribe({
-        next: (res) => {
-          updatedUser.fotoPerfil = res.url;
-          this.updateUserProfile(updatedUser);
-        },
-        error: (err) => {
-          console.error('Erro ao enviar foto:', err);
-          this.updateUserProfile(updatedUser);
-        }
-      });
-    } else {
-      this.updateUserProfile(updatedUser);
-    }
+    this.updateUserProfile(updatedUser);
   }
 
   private updateUserProfile(userData: any): void {
     this.profileService.updateUserProfile(this.user._id, userData).subscribe({
       next: (updatedUser) => {
         this.user = updatedUser;
+        localStorage.setItem(
+  "avatarUrl",
+  updatedUser.fotoPerfil || ""
+);
+
+localStorage.setItem(
+  "usuarioNome",
+  updatedUser.nome
+);
         this.isSubmitting = false;
         this.showModal = false;
       },

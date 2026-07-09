@@ -7,10 +7,21 @@ const { v4: uuidv4 } = require("uuid");
 const app = express();
 const PORT = 3000;
 const DATA_DIR = path.join(__dirname, "data");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+
+const pastaUploads = path.join(__dirname, "uploads");
+
+if (!fs.existsSync(pastaUploads)) {
+  fs.mkdirSync(pastaUploads);
+}
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
+app.use("/uploads", express.static(pastaUploads));
+
 
 // Funções utilitárias para lidar com arquivos
 function lerArquivo(nomeArquivo) {
@@ -51,8 +62,33 @@ function addAtividade(atividade) {
     data: new Date()
   });
 
-  salvarArquivo("atividades.json", atividades);
+  const ultimas = atividades
+    .sort((a, b) => new Date(b.data) - new Date(a.data))
+    .slice(0, 10);
+
+  salvarArquivo("atividades.json", ultimas);
+
 }
+
+const storage = multer.diskStorage({
+
+  destination(req, file, cb) {
+    cb(null, pastaUploads);
+  },
+
+  filename(req, file, cb) {
+
+    const extensao = path.extname(file.originalname);
+
+    cb(null, req.params.id + extensao);
+
+  }
+
+});
+
+const upload = multer({
+  storage
+});
 
 // ========================
 // ROTAS DE AUTENTICAÇÃO
@@ -118,19 +154,62 @@ app.get("/api/atividades", (req, res) => {
 });
 
 app.put("/usuarios/:id", (req, res) => {
+
   const usuarios = getUsuarios();
 
-const index = usuarios.findIndex(
-  u => u._id === req.params.id
-);
-  
+  const index = usuarios.findIndex(
+    u => u._id === req.params.id
+  );
+
   if (index === -1) {
-    return res.status(404).json({ message: "Usuário não encontrado" });
+    return res.status(404).json({
+      message: "Usuário não encontrado"
+    });
   }
-  usuarios[index] = { ...usuarios[index], ...req.body };
+
+  console.log("===== DADOS RECEBIDOS =====");
+console.log(req.body);
+
+usuarios[index] = {
+  ...usuarios[index],
+  ...req.body
+};
+
+console.log("===== USUÁRIO SALVO =====");
+console.log(usuarios[index]);
+
   salvarArquivo("usuarios.json", usuarios);
+
   res.json(usuarios[index]);
 });
+
+app.post(
+  "/usuarios/:id/photo",
+  upload.single("photo"),
+  (req, res) => {
+
+    const usuarios = getUsuarios();
+
+    const usuario = usuarios.find(
+      u => u._id === req.params.id
+    );
+
+    if (!usuario) {
+      return res.status(404).json({
+        message: "Usuário não encontrado"
+      });
+    }
+
+    usuario.fotoPerfil = `/uploads/${req.file.filename}`;
+
+    salvarArquivo("usuarios.json", usuarios);
+
+    res.json({
+      url: usuario.fotoPerfil
+    });
+
+  }
+);
 
 
 // ========================
@@ -190,6 +269,22 @@ app.post("/api/campanhas", (req, res) => {
     campanhas.push(novaCampanha);
 
     salvarArquivo("campanhas.json", campanhas);
+
+    addAtividade({
+
+  tipo: "campanha",
+
+  usuarioId: novaCampanha.ong?._id,
+
+  nome: novaCampanha.ong?.nome,
+
+  fotoPerfil: novaCampanha.ong?.logo || "",
+
+  campanha: novaCampanha.titulo,
+
+  data: new Date()
+
+});
 
     res.status(201).json(novaCampanha);
 
@@ -469,18 +564,26 @@ const usuario = usuarios.find(
 
   console.log("BODY RECEBIDO:");
 console.log(req.body);
-  const novaDoacao = {
+const novaDoacao = {
   _id: uuidv4(),
 
   usuarioId: req.body.usuarioId || null,
   donorId: req.body.donorId || req.body.sessionId || uuidv4(),
 
-  nome: req.body.doador?.nome || "Anônimo",
-  fotoPerfil: req.body.doador?.fotoPerfil || "",
+  nome:
+    req.body.doador?.nome ||
+    req.body.nome ||
+    "Anônimo",
+
+  fotoPerfil:
+    req.body.doador?.fotoPerfil ||
+    req.body.fotoPerfil ||
+    "",
 
   email: req.body.email || null,
 
   campanha: req.body.campanha,
+
   valor: Number(req.body.valor),
 
   anonima: req.body.anonima || false,
@@ -494,6 +597,7 @@ salvarArquivo("doacoes.json", doacoes);
 
 addAtividade({
   tipo: "doacao",
+  usuarioId: novaDoacao.usuarioId,
   nome: novaDoacao.anonima ? "Anônimo" : novaDoacao.nome,
   fotoPerfil: novaDoacao.anonima ? "" : novaDoacao.fotoPerfil,
   valor: novaDoacao.valor,
