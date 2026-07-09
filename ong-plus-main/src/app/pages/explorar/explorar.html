@@ -102,8 +102,6 @@
 
       <div *ngFor="let cause of filteredCauses">
 
-        {{ cause.imagem | json }}
-
       <app-campaign-card
       [campaign]="cause"
       (donate)="openDonationModal($event)">
