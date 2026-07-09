@@ -93,8 +93,19 @@ export class NewCampaignDialog {
     return;
   }
 
-  const body = this.campaignForm.value;
 
+console.log("ID da ONG:", localStorage.getItem("_id"));
+console.log("Nome:", localStorage.getItem("usuarioNome"));
+console.log("Avatar:", localStorage.getItem("avatarUrl"));
+const body = {
+  ...this.campaignForm.value,
+
+  ong: {
+    _id: localStorage.getItem('userId'),
+    nome: localStorage.getItem('usuarioNome'),
+    logo: localStorage.getItem('avatarUrl') || ''
+  }
+};
   const operation = this.data?.campaign
     ? this.campaignService.updateCampaign(this.data.campaign._id, body)
     : this.campaignService.createCampaign(body);

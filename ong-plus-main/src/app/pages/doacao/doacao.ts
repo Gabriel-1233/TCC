@@ -68,7 +68,7 @@ export class Doacao {
       this.errorMessage = null;
     }
   }
-
+  
   // Submete a doação para o servidor
   submitDonation(): void {
     if (!this.donation.valor || this.donation.valor <= 0) {
@@ -79,15 +79,54 @@ export class Doacao {
     this.isLoading = true;
     this.errorMessage = null;
 
+const usuarioId = localStorage.getItem("_id");
+const email = localStorage.getItem("email");
+const nome = localStorage.getItem("usuarioNome");
+const fotoPerfil = localStorage.getItem("avatarUrl");
+
+// tenta usar o id do usuário
+let donorId = usuarioId || email;
+
+// se não estiver logado
+if (!donorId) {
+
+  donorId = localStorage.getItem("sessionId");
+
+  // primeira doação desse navegador
+  if (!donorId) {
+
+    donorId = crypto.randomUUID();
+
+    localStorage.setItem("sessionId", donorId);
+
+  }
+
+}
+
+    
     const completeDonation: Donation = {
-      ...this.donation as Donation,
-      campanha: {
-        _id: this.campaignId,
-        titulo: this.campaignTitle,
-        imagem: this.campaignImage
-      },
-      dataDoacao: new Date()
-    };
+  ...this.donation as Donation,
+
+    usuarioId: usuarioId || null,
+    email: email || null,
+    
+    
+    doador: {
+  _id: usuarioId || donorId,
+  nome: nome || "Anônimo",
+  fotoPerfil: fotoPerfil || ""
+},
+
+    donorId: donorId,
+  
+  campanha: {
+    _id: this.campaignId,
+    titulo: this.campaignTitle,
+    imagem: this.campaignImage
+  },
+
+  dataDoacao: new Date()
+};
 
     this.donationService.createDonation(completeDonation).subscribe({
       next: (response) => {

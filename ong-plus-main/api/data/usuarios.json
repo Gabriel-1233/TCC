@@ -74,5 +74,50 @@
     "aceitouTermos": true,
     "tipo": "ong",
     "dataCriacao": "2026-07-02T20:36:44.282Z"
+  },
+  {
+    "_id": "caf4421d-7096-4136-b174-e3f2aa46ece5",
+    "nome": "welson gabriel",
+    "cnpj": "03942981000184",
+    "email": "welsonpiaggio@gmail.com",
+    "senha": "Bahia3940@",
+    "telefone": "71981652184",
+    "areaAtuacao": "Meio Ambiente",
+    "endereco": "Rua David Veloso, 1",
+    "site": "welsonpiaggio@gmail.com",
+    "descricao": "",
+    "aceitouTermos": true,
+    "tipo": "ong",
+    "dataCriacao": "2026-07-03T16:54:40.475Z"
+  },
+  {
+    "_id": "98586d85-5fa5-4f12-a50d-62536a33cba0",
+    "nome": "Ong dos power ranger",
+    "cnpj": "04792471000130",
+    "email": "arthurfragaoliveira.dev@gmail.com",
+    "senha": "Bahia0100",
+    "telefone": "75992506324",
+    "areaAtuacao": "Meio Ambiente",
+    "endereco": "Avenida Dendezeiros",
+    "site": "",
+    "descricao": "",
+    "aceitouTermos": true,
+    "tipo": "ong",
+    "dataCriacao": "2026-07-03T17:59:16.725Z"
+  },
+  {
+    "_id": "5d7ce5dd-80a4-4879-99a4-96ecb45f2429",
+    "nome": "Boa vida",
+    "cnpj": "11948671000103",
+    "email": "reisnlorena@gmail.com",
+    "senha": "Bahia3940@",
+    "telefone": "71982554952",
+    "areaAtuacao": "Educação",
+    "endereco": "138",
+    "site": "",
+    "descricao": "",
+    "aceitouTermos": true,
+    "tipo": "ong",
+    "dataCriacao": "2026-07-07T01:20:26.619Z"
   }
 ]

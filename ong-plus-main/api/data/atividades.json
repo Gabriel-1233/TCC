@@ -1,0 +1,31 @@
+[
+  {
+    "_id": "8cb3d778-c3f5-4e0a-9885-10b7010be7c9",
+    "tipo": "doacao",
+    "nome": "Anônimo",
+    "fotoPerfil": "",
+    "valor": 50,
+    "campanha": "teste3",
+    "data": "2026-07-07T14:13:38.216Z"
+  },
+  {
+    "_id": "cfcc8eb8-6335-4e91-a21f-3363ab31fd10",
+    "texto": "Nova doação de R$ 500.00 recebida.",
+    "data": "2026-07-07T05:19:07.535Z"
+  },
+  {
+    "_id": "f40e2178-ae43-46f7-9f64-240f9626fe2f",
+    "texto": "Nova doação de R$ 50.00 recebida.",
+    "data": "2026-07-07T05:03:28.463Z"
+  },
+  {
+    "_id": "9e4a0ee5-5df6-4b28-991e-de8807589ddb",
+    "texto": "Nova doação de R$ 50.00 recebida.",
+    "data": "2026-07-07T05:00:21.111Z"
+  },
+  {
+    "_id": "7405a4c6-442c-468a-aac3-6e07ef573138",
+    "texto": "Nova doação de R$ 30.00 recebida.",
+    "data": "2026-07-07T04:59:17.480Z"
+  }
+]

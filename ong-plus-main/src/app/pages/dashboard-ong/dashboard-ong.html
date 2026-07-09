@@ -168,7 +168,7 @@
               <mat-icon>groups</mat-icon>
             </div>
             <div class="stat-info">
-              <h3>{{ currentOng.volunteers }}</h3>
+              <h3>{{ currentOng.donors }}</h3>
               <p>Novos Doadores</p>
             </div>
             <!-- <div class="stat-trend negative">
@@ -190,10 +190,12 @@
               </div>
             </div>
             <div class="chart-container">
-              <div class="chart-placeholder">
-                <p>Futura implementação com gráficos</p>
-                <!-- <img src="/grafico.jpg"  alt="Gráfico de doações" /> -->
-              </div>
+                <canvas
+  baseChart
+  [data]="barChartData"
+  [options]="barChartOptions"
+  [type]="barChartType">
+</canvas>
             </div>
           </div>
 
@@ -204,21 +206,63 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
             </div>
-            <span>Sem movimentações</span>
-            <!-- <div class="activities-list">
-              <div class="activity-item" *ngFor="let activity of recentActivities">
-                <div class="activity-avatar">
-                  <img *ngIf="activity.avatar" [src]="activity.avatar" alt="Usuário" />
-                  <div *ngIf="!activity.avatar" class="initials-avatar">{{ activity.initials }}</div>
-                </div>
-                <div class="activity-details">
-                  <p>
-                    <strong>{{ activity.user || activity.entity }}</strong> {{ activity.action }}
-                  </p>
-                  <span class="activity-time">{{ activity.time }}</span>
-                </div>
-              </div>
-            </div> -->
+            <div *ngIf="recentActivities.length === 0">
+  <span>Sem movimentações</span>
+</div>
+
+<div
+  class="activities-list"
+  *ngIf="recentActivities.length > 0">
+
+    <div
+  class="activity-item"
+  *ngFor="let activity of recentActivities">
+
+  <div class="activity-avatar">
+
+    <img
+      *ngIf="activity.fotoPerfil"
+      [src]="activity.fotoPerfil"
+      alt="Foto">
+
+    <div
+      *ngIf="!activity.fotoPerfil"
+      class="initials-avatar">
+
+      {{ activity.nome?.charAt(0) }}
+
+    </div>
+
+  </div>
+
+  <div class="activity-details">
+
+    <p>
+
+      <strong>{{ activity.nome }}</strong>
+
+      doou
+
+      <strong>R$ {{ activity.valor }}</strong>
+
+      para
+
+      <strong>{{ activity.campanha }}</strong>
+
+    </p>
+
+    <span class="activity-time">
+
+      {{ activity.data | date:'dd/MM/yyyy HH:mm' }}
+
+    </span>
+
+  </div>
+
+</div>
+
+
+</div>
           </div>
         </div>
 
