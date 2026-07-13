@@ -55,4 +55,7 @@ export class Header implements OnInit {
     this.atualizarEstado();
     this.router.navigate(['/login']);
   }
+  irParaPerfil() {
+    this.router.navigate(['/perfil']);
+  }
 }

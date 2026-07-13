@@ -48,3 +48,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     --transition: all 0.4s ease;
   }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Força a página a ter no mínimo o tamanho da tela inteira */
+  background-color: var(--neutral-light, #f8f5f0); /* Usa sua cor bege clarinha de fundo */
+}
+
+.app-main-content {
+  flex: 1 0 auto; 
+}
+
+
+app-footer, footer {
+  flex-shrink: 0; 
+  margin-top: auto; 
+}

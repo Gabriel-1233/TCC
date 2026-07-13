@@ -10,6 +10,6 @@ export class RegisterService {
   constructor(private http: HttpClient) {}
 
   registerUser(doador: any): Observable<any> {
-    return this.http.post(this.apiUrl, doador);
-  }
+  return this.http.post(`${this.apiUrl}/register`, doador);
+}
 }

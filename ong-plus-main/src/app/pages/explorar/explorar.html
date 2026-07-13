@@ -1,140 +1,142 @@
 <!-- explorar.html -->
-<app-header></app-header>
+<div class="app-container">
+  <app-header></app-header>
 
-<div class="explore-container">
-  <!-- Hero Section -->
-  <section class="explore-hero">
-    <div class="hero-content">
-      <h1>Descubra Causas que Merecem Seu Apoio</h1>
-      <p class="lead">Conectamos você às melhores campanhas de arrecadação com transparência e impacto real</p>
+  <main class="app-main-content explore-container">
+    <!-- Hero Section -->
+    <section class="explore-hero">
+      <div class="hero-content">
+        <h1>Descubra Causas que Merecem Seu Apoio</h1>
+        <p class="lead">Conectamos você às melhores campanhas de arrecadação com transparência e impacto real</p>
+        
+        <div class="hero-stats mt-5">
+          <div class="hero-stat">
+            <h2>{{ featuredCampaigns.length }}</h2>
+            <span>Campanhas</span>
+          </div>
+
+          <div class="hero-stat">
+            <h2>{{ popularTags.length }}</h2>
+            <span>Categorias</span>
+          </div>
+
+          <div class="hero-stat">
+            <h2>100%</h2>
+            <span>Transparência</span>
+          </div>
+        </div>
+
+        <div class="search-container">
+          <div class="search-input">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Buscar campanhas..." [(ngModel)]="searchTerm">
+            <button class="btn-search">Buscar</button>
+          </div>
+          
+          <div class="search-tags">
+            <span *ngFor="let tag of popularTags" 
+                  class="tag" 
+                  [class.active]="selectedTag === tag"
+                  (click)="selectTag(tag)">
+              {{tag}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtros -->
+    <section class="filters-section">
+      <div class="filter-toggle" (click)="toggleFilters()">
+        <i class="bi bi-funnel" [class.rotated]="showFilters"></i>
+        <span>Filtrar Campanhas</span>
+      </div>
       
-      <div class="hero-stats mt-5">
-
-  <div class="hero-stat">
-    <h2>{{ featuredCampaigns.length }}</h2>
-    <span>Campanhas</span>
-  </div>
-
-  <div class="hero-stat">
-    <h2>{{ popularTags.length }}</h2>
-    <span>Categorias</span>
-  </div>
-
-  <div class="hero-stat">
-    <h2>100%</h2>
-    <span>Transparência</span>
-  </div>
-
-  </div>
-
-      <div class="search-container">
-        <div class="search-input">
-          <i class="bi bi-search"></i>
-          <input type="text" placeholder="Buscar campanhas..." [(ngModel)]="searchTerm">
-          <button class="btn-search">Buscar</button>
+      <div class="filters-content" *ngIf="showFilters">
+        <div class="filter-group">
+          <h4>Categorias</h4>
+          <div class="filter-options">
+            <label *ngFor="let category of categories">
+              <input type="checkbox" 
+                     [checked]="selectedCategories.includes(category)"
+                     (change)="toggleCategory(category)">
+              {{category}}
+            </label>
+          </div>
         </div>
         
-        <div class="search-tags">
-          <span *ngFor="let tag of popularTags" 
-                class="tag" 
-                [class.active]="selectedTag === tag"
-                (click)="selectTag(tag)">
-            {{tag}}
-          </span>
+        <div class="filter-group">
+          <h4>Localização</h4>
+          <select class="form-select" [(ngModel)]="selectedLocation">
+            <option value="">Todas localizações</option>
+            <option *ngFor="let location of locations" [value]="location">{{location}}</option>
+          </select>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Filtros -->
-  <section class="filters-section">
-    <div class="filter-toggle" (click)="toggleFilters()">
-      <i class="bi bi-funnel" [class.rotated]="showFilters"></i>
-      <span>Filtrar Campanhas</span>
-    </div>
-    
-    <div class="filters-content" *ngIf="showFilters">
-      <div class="filter-group">
-        <h4>Categorias</h4>
-        <div class="filter-options">
-          <label *ngFor="let category of categories">
-            <input type="checkbox" 
-                   [checked]="selectedCategories.includes(category)"
-                   (change)="toggleCategory(category)">
-            {{category}}
-          </label>
-        </div>
-      </div>
-      
-      <div class="filter-group">
-        <h4>Localização</h4>
-        <select class="form-select" [(ngModel)]="selectedLocation">
-          <option value="">Todas localizações</option>
-          <option *ngFor="let location of locations" [value]="location">{{location}}</option>
-        </select>
-      </div>
-      
-      <div class="filter-group">
-        <h4>Ordenar por</h4>
-        <select class="form-select" [(ngModel)]="sortOption">
-          <option value="recent">Mais recentes</option>
-          <option value="popular">Mais populares</option>
-          <option value="urgent">Mais urgentes</option>
-        </select>
-      </div>
-    </div>
-  </section>
-
-  <!-- Resultados -->
-  <section class="results-section">
-    <div class="results-header">
-      <h2>{{filteredCauses.length}} campanhas encontradas</h2>
-      <div class="sort-options">
-        <select class="form-select" [(ngModel)]="sortOption">
-          <option value="recent">Mais recentes</option>
-          <option value="popular">Mais populares</option>
-          <option value="urgent">Mais urgentes</option>
-        </select>
-      </div>
-    </div>
-    
-    <div class="premium-causes-grid">
-
-      <div *ngFor="let cause of filteredCauses">
-
-      <app-campaign-card
-      *ngFor="let cause of filteredCauses"
-      [campaign]="cause"
-      (donate)="openDonationModal($event)">
-      </app-campaign-card>
-
-    </div>
-
-    <div *ngIf="filteredCauses.length === 0" class="no-results">
-      <p>Nenhuma campanha encontrada com os filtros atuais.</p>
-    </div>
-
-  <!-- Modal de Doação -->
-  <div class="modal-overlay" *ngIf="showDonationModal">
-    <div class="modal-content">
-      <app-donation
-        [campaignId]="selectedCampaign?._id || ''"
-        [campaignTitle]="selectedCampaign?.titulo || ''"
         
-        (donationComplete)="handleDonationComplete($event)"
-        (closeModal)="closeDonationModal()">
-      </app-donation>
-    </div>
-  </div>
+        <div class="filter-group">
+          <h4>Ordenar por</h4>
+          <select class="form-select" [(ngModel)]="sortOption">
+            <option value="recent">Mais recentes</option>
+            <option value="popular">Mais populares</option>
+            <option value="urgent">Mais urgentes</option>
+          </select>
+        </div>
+      </div>
+    </section>
 
-  <!-- CTA -->
-  <section class="explore-cta">
-    <div class="cta-content">
-      <h2>Quer que sua campanha apareça aqui?</h2>
-      <p>Cadastre sua ONG e tenha acesso a nossa plataforma premium para alcançar mais doadores</p>
-      <a routerLink="/cadastrar" class="btn-cta">Cadastrar Minha ONG</a>
+    <!-- Resultados -->
+    <section class="results-section">
+      <div class="results-header">
+        <h2>{{filteredCauses.length}} campanhas encontradas</h2>
+        <div class="sort-options">
+          <select class="form-select" [(ngModel)]="sortOption">
+            <option value="recent">Mais recentes</option>
+            <option value="popular">Mais populares</option>
+            <option value="urgent">Mais urgentes</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="explorar-main-content">
+        
+        
+        <div class="premium-causes-grid">
+          
+          <app-campaign-card
+            *ngFor="let cause of filteredCauses"
+            [campaign]="cause"
+            (donate)="openDonationModal($event)">
+          </app-campaign-card>
+
+          <div *ngIf="filteredCauses.length === 0" class="no-results">
+            <p>Nenhuma campanha encontrada com os filtros atuais.</p>
+          </div>
+        </div>
+
+        
+        <section class="explore-cta">
+          <div class="cta-content">
+            <h2>Quer que sua campanha apareça aqui?</h2>
+            <p>Cadastre sua ONG e tenha acesso a nossa plataforma premium para alcançar mais doadores</p>
+            <a routerLink="/cadastrar" class="btn-cta">Cadastrar Minha ONG</a>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+   
+    <div class="modal-overlay" *ngIf="showDonationModal">
+      <div class="modal-content">
+        <app-donation
+          [campaignId]="selectedCampaign?._id || ''"
+          [campaignTitle]="selectedCampaign?.titulo || ''"
+          (donationComplete)="handleDonationComplete($event)"
+          (closeModal)="closeDonationModal()">
+        </app-donation>
+      </div>
     </div>
-  </section>
+  </main>
+
+  <app-footer></app-footer>
 </div>
-
-<app-footer></app-footer>
