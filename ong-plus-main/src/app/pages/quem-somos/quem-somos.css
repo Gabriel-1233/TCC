@@ -357,3 +357,23 @@ background-image:url('/image-luxo2.jpg') ;
     margin-bottom: 1.5rem;
   }
 }
+
+/* Ajustes extras para os cards do time */
+.luxury-team-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a foto não fique esticada ou achatada */
+}
+
+/* Efeito de zoom na foto ao passar o mouse no card */
+.luxury-team-card:hover .luxury-team-avatar img {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.luxury-team-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
